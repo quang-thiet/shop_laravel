@@ -39,8 +39,8 @@ class ProductController extends Controller
     {
         $data = $request->all();
         $fileExtension = $request->file('thumbnail')->getClientOriginalExtension();
-        $fileName = "user-".time().'.'.$fileExtension;
-        $request->file('thumbnail')->move('images/users',$fileName);
+        $fileName = "product-".time().'.'.$fileExtension;
+        $request->file('thumbnail')->move('image/products',$fileName);
         $data['image']= $fileName;
         $data['create_at']= now();
         $data['update_at']=now();

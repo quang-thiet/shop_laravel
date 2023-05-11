@@ -104,7 +104,7 @@
         <body>
             <tr>
                 <td>{{$item->name}}</td>
-                <td><img src="{{asset('/image/products/'.$item->avatar)}}" alt="" style="width:50%;object-fit:cover;display:block;margin:0 auto;aspect-ratio:1/1"></td>
+                <td><img src="{{asset('/image/products/'.$item->image)}}" alt="" style="width:50%;object-fit:cover;display:block;margin:0 auto;aspect-ratio:1/1"></td>
                 <td>{{$item->description}}</td>
                 <td>{{$item->price}}</td>
                 <td>

@@ -72,7 +72,7 @@
                     </div>
                     <div class="card-body">
                         <div class="custom-file">
-                            <input type="file" id="customFile" name="thumbnail" accept=".png, .jng , .jpeg , .jfif"
+                            <input type="file" id="customFile" name="thumbnail" accept=".png, .jng , .jpeg , .jfif , .jpg"
                                 class="custom-file-input" />
                             <label class="custom-file-label" for="customFile" style="overflow:hidden">Choose file</label>
                         </div>
