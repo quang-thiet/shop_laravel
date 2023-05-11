@@ -20,8 +20,10 @@ class UserSeeder extends Seeder
             [
                 'name'=>'Đặng Quang Thiết',
                 'email'=>'147thiet@gmail.com',
+                'number_phone'=>'0966892091',
+                'gender'=>'1',
+                'avatar'=>'a',
                 'password'=> Hash::make(1234567),
-                
             ]
             );
     }

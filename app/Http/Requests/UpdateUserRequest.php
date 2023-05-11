@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        return true ;
+        return true;
     }
 
     /**
@@ -26,9 +26,8 @@ class UserRequest extends FormRequest
         return [
             'name'=>'required|max:225',
             'email'=>'required|email',
-            'password'=>'required|min:6',
-            'thumbnail'=>'required|image'
-            
+            'thumbnail'=>'nullable|image',
+            'number_phone'=>'nullable|min:10'
         ];
     }
     public function messages()
@@ -38,8 +37,7 @@ class UserRequest extends FormRequest
             'name.max'=>':attribute ký tự tối đa là 225 ký tự',
             'email.required'=>':attribute vui lòng không để trống',
             'email.email'=>':attribute sai định dạng',
-            'password.required'=>':attribute tối thiểu 6 ký tự',
-        
+            'number_phone.min'=>' :attribute tối thiếu phải 10 ký tự'
         ];
     }
 
@@ -48,8 +46,8 @@ class UserRequest extends FormRequest
         return [
             'name'=>'Tên',
             'email'=>'Email',
-            'password'=>'Mật khẩu',
-            'thumbnail'=>'Ảnh đại diện'
+            'thumbnail'=>'Ảnh đại diện',
+            'number_phone'=>'số điện thoại'
         ];
     }
 }

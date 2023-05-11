@@ -38,7 +38,7 @@
         <div class="icon">
           <i class="ion ion-bag"></i>
         </div>
-        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="{{route('product.add')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <!-- ./col -->
@@ -61,9 +61,9 @@
       <!-- small box -->
       <div class="small-box bg-warning">
         <div class="inner">
-          <h3>{{count($users)}}</h3>
+          <h3>{{count($products)}}</h3>
 
-          <p>User Registrations</p>
+          <p>item Registrations</p>
         </div>    
         <div class="icon">
           <i class="ion ion-person-add"></i>
@@ -93,23 +93,23 @@
             <tr>
                 <td class="datatable-cell" style="flex-grow:1">Name</td>
                 <td  class="datatable-cell" style="width: 15%">Avatar</td>
-                <td class="datatable-cell" style="flex-grow:1">Email</td>
-                <td>Role</td>
+                <td class="datatable-cell" style="flex-grow:1">Description</td>
+                <td>price</td>
                 <td>Action</td>
             </tr>
         </header>
-        @foreach ($users as $user)
+        @foreach ($products as $item)
             
        
         <body>
             <tr>
-                <td>{{$user->name}}</td>
-                <td><img src="{{asset('/image/users/'.$user->avatar)}}" alt="" style="width:50%;object-fit:cover;display:block;margin:0 auto;aspect-ratio:1/1"></td>
-                <td>{{$user->email}}</td>
-                <td>{{$user->role}}</td>
+                <td>{{$item->name}}</td>
+                <td><img src="{{asset('/image/products/'.$item->avatar)}}" alt="" style="width:50%;object-fit:cover;display:block;margin:0 auto;aspect-ratio:1/1"></td>
+                <td>{{$item->description}}</td>
+                <td>{{$item->price}}</td>
                 <td>
-                    <a  href= "{{route('user.edit',['id'=>$user->id])}}" class="btn btn-success">chi tiết </a>
-                    <a href="{{route('delete.user',['id'=>$user->id])}}" class="btn btn-danger">xóa</a>
+                    <a  href= "{{route('product.edit',['id'=>$item->id])}}" class="btn btn-success">chi tiết </a>
+                    <a href="{{route('product.delete',['id'=>$item->id])}}" class="btn btn-danger">xóa</a>
                 </td>
             </tr>
         </body>

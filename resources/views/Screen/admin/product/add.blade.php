@@ -1,6 +1,6 @@
 @extends('layout.admin.main')
 @section('content')
-    <form action="{{ route('process,add.user') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('process.add.product') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-md-8">
@@ -20,42 +20,48 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label>Email
+                            <label>miêu tả
                                 <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" value="" name="email"
+                            <input type="textarea" class="form-control" value="" name="description"
                                 placeholder="Nhập email">
-                            @error('email')
+                            @error('description')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label>password
+                            <label>số lượng
                                 <span class="text-danger">*</span></label>
-                            <input name="password" type="password" rows="4" class="form-control"
-                                placeholder="Nhập password" value=""></input>
-                            @error('password')
+                            <input name="quantity" type="number" rows="4" class="form-control"
+                                placeholder="Nhập số lượng số lượng sản phẩm" value=""></input>
+                            @error('quantity')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label>vai trò</label>
-                            <div class="radio-inline">
-                                @if (Auth::user()->role == 1 || Auth::user()->role == 3)
-                                    <label class="radio radio-rounded">
-                                        <input type="radio" value="1" name="role">
-                                        <span></span>manage</label>
-                                @endif
-                                <label class="radio radio-rounded">
-                                    <input type="radio" value="0" name="role" @checked(true)>
-                                    <span></span>user</label>
-                            </div>
+                            <label>giá
+                                <span class="text-danger">*</span></label>
+                            <input name="price" type="number" rows="4" class="form-control"
+                                placeholder="Nhập giá sản phẩm " value=""></input>
+                            @error('price')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
+                        <div class="form-group">
+                            <label>giá giảm
+                                <span class="text-danger">*</span></label>
+                            <input name="discount" type="number" rows="4" class="form-control"
+                                placeholder="Nhập giá giảm" value=""></input>
+                            @error('discount')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                       
 
                     </div>
                     <div id="2" class="card-footer">
-                        <button type="submit" class="btn btn-primary mr-2">Cập nhật</button>
-                        <a href="{{ route('user.list') }}"><button type="button" class="btn btn-success mr-2">Danh sách
-                                user</button></a>
+                        <button type="submit" class="btn btn-primary mr-2">thêm sản phẩm</button>
+                        <a href="{{ route('product.list') }}"><button type="button" class="btn btn-success mr-2">Danh sách
+                                sản phẩm </button></a>
                     </div>
 
                 </div>
@@ -67,12 +73,12 @@
                             <span class="card-icon">
                                 <i class="far fa-image text-primary"></i>
                             </span>
-                            <h3 class="card-label">ẢNh đại diện</h3>
+                            <h3 class="card-label">image</h3>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="custom-file">
-                            <input type="file" id="customFile" name="thumbnail" accept=".png, .jng , .jpeg , .jfif"
+                            <input type="file" id="customFile" name="thumbnail" accept=".png, .jng , .jpeg , .jfif , .jpg"
                                 class="custom-file-input" />
                             <label class="custom-file-label" for="customFile" style="overflow:hidden">Choose file</label>
                         </div>

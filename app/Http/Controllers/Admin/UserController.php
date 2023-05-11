@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -21,7 +21,7 @@ class UserController extends Controller
         return view('Screen.admin.user.add');
     }
 
-    public function storage(UserRequest $request)
+    public function store(UserRequest $request)
     { 
         
         $data = $request->all();
@@ -34,7 +34,7 @@ class UserController extends Controller
         $data['created_at']= now();
         $data['update_at']=now();
         User::create($data);
-        return redirect()->back()->with('success','thêm thành công');
+        return redirect()->route('user.list')->with('success','thêm thành công');
         
 
     }
@@ -46,16 +46,18 @@ class UserController extends Controller
 
     }
 
-    public function update(UserRequest $request)
+    public function update(UpdateUserRequest $request , $id)
     {
         $data = $request->all();
+       if (isset($data['thumbnail'])) {
         $fileExtension = $request->file('thumbnail')->getClientOriginalExtension();
         $fileName = 'user-'.time().".".$fileExtension;
-        $request->file('thumbnail')->move('images/users',$fileName);
+        $request->file('thumbnail')->move('image/users',$fileName);
         $data['avatar']=$fileName;
         $data['created_at']= now();
         $data['update_at'] =now();
-        User::update($data);
+       }
+        User::find($id)->update($data);
         return redirect()->back()->with('success','câp nhật thành công ');
 
     }

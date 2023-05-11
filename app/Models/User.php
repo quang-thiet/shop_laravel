@@ -22,8 +22,14 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'avatar',
         'number_phone',
         'gender'
+    ];
+
+    protected $attribute =[
+        'number_phone'=>123456789,
+        'gender'=>1
     ];
 
     /**
