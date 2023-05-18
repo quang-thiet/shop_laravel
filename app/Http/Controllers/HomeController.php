@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index(){
-        return view('Layout.client.main');
+        $products = Product::paginate(5);
+        return view('Screen.client.home',compact('products'));
     }
+
+    public function SingleProduct($slug,$id){
+        $product = Product::find($id);
+    
+        return view('Screen.client.single-product',compact('product'));
+    } 
 }

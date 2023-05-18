@@ -27,7 +27,7 @@
   @if (session()->has('success'))
   <div class="alert alert-success">{{ session()->get('success') }}</div>
 @endif
-
+<a href="{{route('product.add')}}" class="btn btn-success"> thêm </a>
     <table class="table">
         <header>
             <tr>
@@ -35,6 +35,7 @@
                 <td  class="datatable-cell" style="width: 15%">Avatar</td>
                 <td class="datatable-cell" style="flex-grow:1">Description</td>
                 <td>price</td>
+                <td>discount</td>
                 <td>Action</td>
             </tr>
         </header>
@@ -47,6 +48,7 @@
                 <td><img src="{{asset('/image/products/'.$item->image)}}" alt="" style="width:50%;object-fit:cover;display:block;margin:0 auto;aspect-ratio:1/1"></td>
                 <td>{{$item->description}}</td>
                 <td>{{$item->price}}</td>
+                <td>{{$item->discount}}</td>
                 <td>
                     <a  href= "{{route('product.edit',['id'=>$item->id])}}" class="btn btn-success">chi tiết </a>
                     <a href="{{route('product.delete',['id'=>$item->id])}}" class="btn btn-danger">xóa</a>

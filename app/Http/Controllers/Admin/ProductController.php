@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 
+
 class ProductController extends Controller
 {
     /**
@@ -16,6 +17,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::paginate(5);
+       
         return view('Screen.admin.product.list',compact('products'));
     }
 
@@ -66,9 +68,11 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        return view('Screen.admin.product.edit',compact('product'));
+         
     }
 
     /**
@@ -78,9 +82,19 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request,$id)
     {
-        //
+        $data = $request->all();
+        if(isset($data['thumbnail'])){
+            $fileExtension = $request->file('thumbnail')->getClientOriginalExtension();
+            $fileName = 'user-'.time().".".$fileExtension;
+            $request->file('thumbnail')->move('image/products',$fileName);
+            $data['image']=$fileName;
+        };
+        $data['created_at']= now();
+        $data['update_at'] =now();
+        Product::find($id)->update($data);
+        return redirect()->route('product.list')->with('success','update thành công');
     }
 
     /**
@@ -89,7 +103,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product,$id)
+    public function destroy($id)
     {
         $user = Product::find($id);
         $user->delete();

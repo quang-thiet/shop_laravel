@@ -22,6 +22,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('home', [HomeController::class, 'index']);
+Route::get('/single-{slug}-{id}', [HomeController::class, 'SingleProduct'])->name('sigle.product');
 
 
 #admin
@@ -41,6 +42,8 @@ Route::middleware('auth', 'check.admin')->prefix('admin')->group(function () {
     Route::post('/product/process-add-product',[ProductController::class, 'store'])->name('process.add.product');
     Route::get('/product/edit-product/{id}',[ProductController::class
     , 'edit'])->name('product.edit');
+    Route::post('/product/update-product/{id}',[ProductController::class
+    , 'update'])->name('product.update');
     Route::get('/product/delete/{id}',[ProductController::class,'destroy'])->name('product.delete');
 });
 

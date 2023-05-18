@@ -13,7 +13,7 @@ class UpdateProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,21 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>'required',
+            'description' => 'required',
+            'price' => 'required',
+            'image' => 'nullable|image',
+            'discount' =>'required',
+            'quantity' => 'required',
+        ];
+
+    }
+
+    public function messages()
+    {
+        return [
+            'required' =>'vui long không bỏ trống mục này',
+            'image' =>'sai định dạng'
         ];
     }
 }
