@@ -36,9 +36,15 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
+              <a href="{{route('category.list')}}" class="nav-link">
+                
+                <p>Category</p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="{{route('user.list')}}" class="nav-link">
                 
-                <p>Danh sách USER</p>
+                <p>User</p>
               </a>
             </li>
             <li class="nav-item">
@@ -50,7 +56,7 @@
             <li class="nav-item">
               <a href="./index3.html" class="nav-link">
                 
-                <p>card</p>
+                <p>Oder</p>
               </a>
             </li>
           </ul>

@@ -10,7 +10,7 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="">name
+                            <label for="">Tên sản phẩm 
                                 <span class="text-danger">*</span>
                             </label>
                             <input type="text" class="form-control" value="{{$product->name}}" name="name"
@@ -55,8 +55,6 @@
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
-
-
                     </div>
                     <div id="2" class="card-footer">
                         <button type="submit" class="btn btn-primary mr-2">Cập nhật</button>

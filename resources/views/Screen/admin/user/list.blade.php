@@ -1,5 +1,8 @@
 @extends('layout.admin.main')
 @section('content')
+@if (session()->has('success'))
+<div class="alert alert-success">{{ session()->get('success') }}</div>
+@endif
 <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
@@ -24,9 +27,7 @@
      
       <!-- /.row -->
 <div class="row">
-  @if (session()->has('success'))
-  <div class="alert alert-success">{{ session()->get('success') }}</div>
-@endif
+ 
     <div class="col-lg-3 col-6">
       <!-- small box -->
       <div class="small-box bg-info">
@@ -91,11 +92,11 @@
     <table class="table">
         <header>
             <tr>
-                <td class="datatable-cell" style="flex-grow:1">Name</td>
-                <td  class="datatable-cell" style="width: 15%">Avatar</td>
-                <td class="datatable-cell" style="flex-grow:1">Email</td>
-                <td>Role</td>
-                <td>Action</td>
+              <th class="datatable-cell" style="flex-grow:1"><span>Name</span></th>
+              <th class="datatable-cell" style="width: 15%"><span>image</span></th>
+              <th class="datatable-cell" style="width: 20%"><span>Email</span></th>
+              <th class="datatable-cell" style="width: 20%"><span>Role</span></th>
+                <th class="datatable-cell text-right" style="width: 15%"><span>Tùy chọn</span></th>  
             </tr>
         </header>
         @foreach ($users as $user)
@@ -107,10 +108,14 @@
                 <td><img src="{{asset('/image/users/'.$user->avatar)}}" alt="" style="width:50%;object-fit:cover;display:block;margin:0 auto;aspect-ratio:1/1"></td>
                 <td>{{$user->email}}</td>
                 <td>{{$user->role}}</td>
-                <td>
-                    <a  href= "{{route('user.edit',['id'=>$user->id])}}" class="btn btn-success">chi tiết </a>
-                    <a href="{{route('delete.user',['id'=>$user->id])}}" class="btn btn-danger">xóa</a>
-                </td>
+                <td class="datatable-cell text-right" style="width: 15%">
+                  <a href="{{ route('user.edit', $user->id) }}"
+                      class="btn btn-icon btn-success btn-sm mr-2"><i
+                          class="fas fa-edit"></i></a>
+                  <a href="{{ route('delete.user', $user->id) }}"
+                      class="btn btn-icon btn-danger btn-sm mr-2"><i
+                          class="far fa-trash-alt"></i></a>
+              </td>
             </tr>
         </body>
         @endforeach

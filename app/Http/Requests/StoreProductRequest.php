@@ -26,11 +26,12 @@ class StoreProductRequest extends FormRequest
         return [
             'name'        => 'required',
             'description' => 'required',
+            'detail'      => 'required',
             'price'       => 'required|integer',
             'discount'    => 'required|integer',
             'thumbnail'   => 'required|image',
             'quantity'    => 'required|integer',
-
+            
         ];
     }
 
@@ -48,10 +49,11 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name'        => 'Tên sản phẩm ',
-            'description' => 'mô tả',
+            'description' => 'Mô tả sản phẩm',
+            'detail'      => 'Chi tiết sản phẩm',
             'price'       => 'Giá sản phẩm',
             'discount'    => 'Giá giảm ',
-            'thumbnail'       => 'Hình ảnh',
+            'thumbnail'   => 'Hình ảnh',
             'quantity'    => 'Số lượng sản phẩm'
         ];
     }

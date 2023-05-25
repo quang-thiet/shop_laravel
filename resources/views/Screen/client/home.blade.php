@@ -224,7 +224,7 @@
                             <div class="product-label">
                                 <span>-20%</span>
                             </div>
-                            <a href="{{route('sigle.product',['slug'=>$item->name ,'id' =>$item->id])}}">
+                            <a href="{{route('single.product',['slug'=>$item->name ,'id' =>$item->id])}}">
                                 <img src="{{asset('image/products/'.$item->image )}}" class="img-fluid" alt="">
                                 <img src="{{asset('image/products/'.$item->image )}}" class="img-fluid" alt="">
                             </a>
@@ -238,7 +238,7 @@
                             </div>
                         </div>
                         <div class="product-content">
-                            <h3 class="title"> <a href="{{route('sigle.product',['slug'=>$item->name ,'id' =>$item->id])}}">Janus Table Lamp</a></h3>
+                            <h3 class="title"> <a href="{{route('single.product',['slug'=>$item->name ,'id' =>$item->id])}}">Janus Table Lamp</a></h3>
                             <p class="product-price"><span class="discounted-price">${{$item->discount}}.00</span> <span class="main-price discounted">${{$item->price}}0.00</span></p>
                         </div>
                     </div>

@@ -1,5 +1,8 @@
 @extends('layout.admin.main')
 @section('content')
+@if (session()->has('success'))
+<div class="alert alert-success">{{ session()->get('success') }}</div>
+@endif
 <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
@@ -24,19 +27,16 @@
      
       <!-- /.row -->
 <div class="row">
-  @if (session()->has('success'))
-  <div class="alert alert-success">{{ session()->get('success') }}</div>
-@endif
 <a href="{{route('product.add')}}" class="btn btn-success"> thêm </a>
     <table class="table">
         <header>
             <tr>
-                <td class="datatable-cell" style="flex-grow:1">Name</td>
-                <td  class="datatable-cell" style="width: 15%">Avatar</td>
-                <td class="datatable-cell" style="flex-grow:1">Description</td>
-                <td>price</td>
-                <td>discount</td>
-                <td>Action</td>
+                <td class="datatable-cell" style="flex-grow:1"><span>Name</span></td>
+                <td  class="datatable-cell" style="width: 15%"><span>Avatar</span></td>
+                <td class="datatable-cell" style="flex-grow:1"><span>Description</span></td>
+                <td class="datatable-cell" style="width: 20%"><span>price</span></td>
+                <td class="datatable-cell" style="width: 20%"><span>discount</span></td>
+                <td class="datatable-cell" style="width: 20%"><span>Action</span></td>
             </tr>
         </header>
         @foreach ($products as $item)
@@ -49,10 +49,14 @@
                 <td>{{$item->description}}</td>
                 <td>{{$item->price}}</td>
                 <td>{{$item->discount}}</td>
-                <td>
-                    <a  href= "{{route('product.edit',['id'=>$item->id])}}" class="btn btn-success">chi tiết </a>
-                    <a href="{{route('product.delete',['id'=>$item->id])}}" class="btn btn-danger">xóa</a>
-                </td>
+                <td class="datatable-cell text-right" style="width: 15%">
+                  <a href="{{route('product.edit',['id'=>$item->id])}}"
+                      class="btn btn-icon btn-success btn-sm mr-2"><i
+                          class="fas fa-edit"></i></a>
+                  <a href="{{route('product.delete',['id'=>$item->id])}}"
+                      class="btn btn-icon btn-danger btn-sm mr-2"><i
+                          class="far fa-trash-alt"></i></a>
+              </td>
             </tr>
         </body>
         @endforeach

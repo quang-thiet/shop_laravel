@@ -41,11 +41,11 @@
                             <label>gender</label>
                             <div class="radio-inline">
                                 <label class="radio radio-rounded">
-                                    <input type="checkbox" value="1" name="role">
+                                    <input type="radio" value="1" name="role">
                                     <span></span>boy</label>
                                 
                                 <label class="radio radio-rounded">
-                                    <input type="checkbox" value="0" name="role" @checked($user->role == 0 )
+                                    <input type="radio" value="0" name="role" @checked($user->role == 0 )
                                     <span></span>girl</label>
                             </div>
                         </div>
@@ -59,8 +59,8 @@
                                         <span>*</span>manage</label>
                                 @endif
                                 <label class="radio radio-rounded">
-                                    <input type="radio" value="0" name="role" @checked(true)>
-                                    <span>*</span>user</label>
+                                    <input type="hidden" value="0" name="role" @checked(true)>
+                                    <span class="text-danger">*</span>user</label>
                             </div>
                         </div>
 
@@ -85,7 +85,7 @@
                     </div>
                     <div class="card-body">
                         <div class="custom-file">
-                            <input type="file"  id="customFile" name="thumbnail" accept=".png, .jng , .jpeg , .jfif"
+                            <input type="file"  id="customFile" name="thumbnail" 
                                 class="custom-file-input" />
                             <label class="custom-file-label" for="customFile" style="overflow:hidden">Choose file</label>
                         </div>

@@ -58,8 +58,8 @@ class UserController extends Controller
         $data['update_at'] =now();
        }
         User::find($id)->update($data);
-        return redirect()->back()->with('success','câp nhật thành công ');
-
+        return redirect()->route('user.list')->with('success','cập thành công');
+        
     }
 
     public function destroy($id){

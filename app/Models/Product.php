@@ -16,7 +16,9 @@ class Product extends Model
         'discount',
         'quantity',
         'vote',
-        'category_id'
+        'detail',
+        'category_id',
+        'published'
 
     ];
 }

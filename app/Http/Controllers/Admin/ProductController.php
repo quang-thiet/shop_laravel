@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -27,8 +27,9 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('Screen.admin.product.add');
+    {   
+        $categories = Category::get();
+        return view('Screen.admin.product.add',compact('categories'));
     }
 
     /**
@@ -40,12 +41,14 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $data = $request->all();
+        $category_id = implode("|", $request->input('categories'));
         $fileExtension = $request->file('thumbnail')->getClientOriginalExtension();
         $fileName = "product-".time().'.'.$fileExtension;
         $request->file('thumbnail')->move('image/products',$fileName);
         $data['image']= $fileName;
         $data['create_at']= now();
         $data['update_at']=now();
+        $data['category_id']= $category_id;
         Product::create($data);
         return redirect()->route('product.list')->with('success','thêm thành công');
         

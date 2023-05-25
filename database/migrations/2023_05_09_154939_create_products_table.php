@@ -19,11 +19,10 @@ return new class extends Migration
             $table->string('description');
             $table->integer('price');
             $table->string('image');
-            $table->string('address');
             $table->integer('discount');
             $table->string('quantity');
             $table->integer('vote')->default(0);
-            $table->integer('category_id');
+            $table->string('category_id');
             $table->timestamps();
         });
     }

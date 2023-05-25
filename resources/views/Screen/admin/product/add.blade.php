@@ -6,24 +6,33 @@
             <div class="col-md-8">
                 <div class="card card-custom">
                     <div class="card header">
-                        <h3 class="card-title">thông tin tài khoản </h3>
+                        <h3 class="card-title"> Thêm sản phẩm </h3>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="">name
+                            <label for="">Tên sản phẩm
                                 <span class="text-danger">*</span>
                             </label>
-                            <input type="text" class="form-control" value="" name="name"
-                                placeholder="Nhật tên user">
+                            <input type="text" class="form-control" value="{{old('name')}}" name="name"
+                                placeholder="Nhập tên sản phẩm">
                             @error('name')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label>miêu tả
+                            <label>mô tả ngắn
                                 <span class="text-danger">*</span></label>
-                            <input type="textarea" class="form-control" value="" name="description"
-                                placeholder="Nhập email">
+                                <textarea name="description" rows="4" class="form-control" placeholder="Nhập mô tả ngắn">{{old('description') }}</textarea>
+                                
+                            @error('description')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>chi tiết sản phẩm
+                                <span class="text-danger">*</span></label>
+                                <textarea name="detail" rows="4" class="form-control" placeholder="chi tiết sản phẩm">{{ old('detail') }}</textarea>
+                                
                             @error('description')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
@@ -31,8 +40,8 @@
                         <div class="form-group">
                             <label>số lượng
                                 <span class="text-danger">*</span></label>
-                            <input name="quantity" type="number" rows="4" class="form-control"
-                                placeholder="Nhập số lượng số lượng sản phẩm" value=""></input>
+                            <input name="quantity" type="number" rows="4" value="{{ old('quantity') }}" class="form-control"
+                                placeholder="Nhập số lượng số lượng sản phẩm" value="">
                             @error('quantity')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
@@ -40,7 +49,7 @@
                         <div class="form-group">
                             <label>giá
                                 <span class="text-danger">*</span></label>
-                            <input name="price" type="number" rows="4" class="form-control"
+                            <input name="price" type="number" rows="4" value="{{old('price')}}"  class="form-control"
                                 placeholder="Nhập giá sản phẩm " value=""></input>
                             @error('price')
                                 <p class="text-danger">{{ $message }}</p>
@@ -49,13 +58,28 @@
                         <div class="form-group">
                             <label>giá giảm
                                 <span class="text-danger">*</span></label>
-                            <input name="discount" type="number" rows="4" class="form-control"
-                                placeholder="Nhập giá giảm" value=""></input>
+                            <input name="discount" type="number" rows="4" value="{{old('discount')}}" class="form-control"
+                                placeholder="Nhập giá giảm" ></input>
                             @error('discount')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
-                       
+                       <div class="form-group">
+                        <div class="checkbox-list">
+                            {{ checkboxCategories($categories) }}
+                        </div>
+                       </div>
+                        <div class="form-group">
+                            <label>Hiển thị</label>
+                            <div class="radio-inline">
+                                <label class="radio radio-rounded">
+                                <input type="radio" value="1" checked="checked" name="published">
+                                <span></span>Hiển thị</label>
+                                <label class="radio radio-rounded">
+                                <input type="radio" value="0" name="published">
+                                <span></span>Không hiển thị</label>
+                            </div>
+                        </div>
 
                     </div>
                     <div id="2" class="card-footer">

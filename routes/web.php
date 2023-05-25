@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,11 +19,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('home', [HomeController::class, 'index']);
-Route::get('/single-{slug}-{id}', [HomeController::class, 'SingleProduct'])->name('sigle.product');
+
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/single-{slug}-{id}', [HomeController::class, 'SingleProduct'])->name('single.product');
 
 
 #admin
@@ -45,6 +44,15 @@ Route::middleware('auth', 'check.admin')->prefix('admin')->group(function () {
     Route::post('/product/update-product/{id}',[ProductController::class
     , 'update'])->name('product.update');
     Route::get('/product/delete/{id}',[ProductController::class,'destroy'])->name('product.delete');
+
+    #category
+    Route::get('/category/list',[CategoryController::class,'index'])->name('category.list');
+    Route::get('/category/form-add-category',[CategoryController::class,'create'])->name('category.add');
+    Route::post('/category/process-add-category',[CategoryController::class,'store'])->name('category.process.add');
+    Route::get('/category/edit-category/{id}',[CategoryController::class,'edit'])->name('category.edit');
+    Route::post('/category/update-category/{id}',[CategoryController::class,'update'])->name('update.category');
+    Route::get('/category/delete-category/{id}',[CategoryController::class,'destroy'])->name('category.delete');
+
 });
 
 
