@@ -36,6 +36,7 @@
                 <td class="datatable-cell" style="flex-grow:1"><span>Description</span></td>
                 <td class="datatable-cell" style="width: 20%"><span>price</span></td>
                 <td class="datatable-cell" style="width: 20%"><span>discount</span></td>
+                <td class="datatable-cell" style="width: 20%"><span>published</span></td>
                 <td class="datatable-cell" style="width: 20%"><span>Action</span></td>
             </tr>
         </header>
@@ -46,10 +47,11 @@
             <tr>
                 <td>{{$item->name}}</td>
                 <td><img src="{{asset('/image/products/'.$item->image)}}" alt="" style="width:50%;object-fit:cover;display:block;margin:0 auto;aspect-ratio:1/1"></td>
-                <td>{{$item->description}}</td>
+                <td>{{substr($item->description,0,30)."..."}}</td>
                 <td>{{$item->price}}</td>
                 <td>{{$item->discount}}</td>
-                <td class="datatable-cell text-right" style="width: 15%">
+                <td><span class="btn btn-{{$item->published !== 1 ? "danger":"success"}}">{{$item->published !== 1 ? "hidde":"published"}}</span></td>
+                <td class="datatable-cell" style="width: 15%">
                   <a href="{{route('product.edit',['id'=>$item->id])}}"
                       class="btn btn-icon btn-success btn-sm mr-2"><i
                           class="fas fa-edit"></i></a>

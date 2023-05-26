@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\RegisterController;
+use App\Http\Controllers\Admin\CartController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CategoryController;
@@ -54,6 +55,9 @@ Route::middleware('auth', 'check.admin')->prefix('admin')->group(function () {
     Route::get('/category/delete-category/{id}',[CategoryController::class,'destroy'])->name('category.delete');
 
 });
+
+#cart
+Route::get('/cart-{id}',[CartController::class,'store'])->name('add.cart');
 
 
 #login

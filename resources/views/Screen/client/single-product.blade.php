@@ -89,9 +89,9 @@
                                     </div>
                                     <div class="product-countdown-two" data-countdown2="2020/06/01"></div>
                                     <div class="single-product-quantity">
-                                        <form class="add-quantity" action="#">
+                                        <form class="add-quantity" action="{{route('add.cart',['id'=>$product->id])}}">
                                             <div class="product-quantity">
-                                                <input value="1" type="number">
+                                                <input value="1" name="quantity" type="number">
                                             </div>
                                             <div class="add-to-link">
                                                 <button class="btn"><i class="fa fa-shopping-bag"></i>add to cart</button>
