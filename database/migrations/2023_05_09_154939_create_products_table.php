@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('discount');
             $table->string('quantity');
             $table->integer('vote')->default(0);
-            $table->string('category_id');
+            $table->string('category_id')->nullable();
             $table->timestamps();
         });
     }

@@ -1,5 +1,15 @@
 @extends('Layout.client.main')
 @section('content')
+@php
+$a =session()->all();
+    dd($a);
+@endphp
+@if (session()->has('success'))
+<div class="alert alert-success">{{ session()->get('success') }}</div>
+@endif
+@if(session()->has('{{$product->id}}')){
+    <a class="btn btn-dangger" href="{{route('delete.cart',['id'=>$product->id])}}"> aaaa</a>
+}@endif
   <!-- Page Banner Section Start -->
   <div class="page-banner-section section bg-image" data-bg="assets/images/bg/breadcrumb.png">
     <div class="container">
@@ -83,9 +93,13 @@
                                     <div class="single-product-price">
                                         <span class="price new-price">${{$product->price}}.00</span>
                                         <span class="regular-price">${{$product->discount}}.00</span>
+                                        <div class="product-quantity">
+                                            <span><h3>số lượng :{{$product->quantity}}</h3></span>
+                                        </div>
+                                      
                                     </div>
                                     <div class="product-description">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco,Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus</p>
+                                        <p>{{$product->description}}</p>
                                     </div>
                                     <div class="product-countdown-two" data-countdown2="2020/06/01"></div>
                                     <div class="single-product-quantity">
@@ -93,6 +107,7 @@
                                             <div class="product-quantity">
                                                 <input value="1" name="quantity" type="number">
                                             </div>
+                                          
                                             <div class="add-to-link">
                                                 <button class="btn"><i class="fa fa-shopping-bag"></i>add to cart</button>
                                             </div>
@@ -151,9 +166,7 @@
                     <div class="tab-content product-review-content-tab" id="myTabContent-4">
                         <div class="tab-pane fade active show" id="description">
                             <div class="single-product-description">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla.</p>
-                                <p>Pellentesque aliquet, sem eget laoreet ultrices, ipsum metus feugiat sem, quis fermentum turpis eros eget velit. Donec ac tempus ante. Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio quis mi. Cras neque metus, consequat et blandit et, luctus a nunc. Etiam gravida vehicula tellus, in imperdiet ligula euismod eget.</p>
-                            </div>
+                               <p>{{$product->detail}}</p>
                         </div>
                         <div class="tab-pane fade" id="reviews">
                             <div class="review-page-comment">

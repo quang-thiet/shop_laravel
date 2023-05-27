@@ -58,6 +58,7 @@ Route::middleware('auth', 'check.admin')->prefix('admin')->group(function () {
 
 #cart
 Route::get('/cart-{id}',[CartController::class,'store'])->name('add.cart');
+Route::get('carrt/{id}', [CartController::class,'delete'])->name('delete.cart');
 
 
 #login
