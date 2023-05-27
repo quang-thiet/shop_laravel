@@ -1,9 +1,6 @@
 @extends('Layout.client.main')
 @section('content')
-@php
-$a =session()->all();
-    dd($a);
-@endphp
+
 @if (session()->has('success'))
 <div class="alert alert-success">{{ session()->get('success') }}</div>
 @endif

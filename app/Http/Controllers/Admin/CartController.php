@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 class CartController extends Controller
 {
     public function store(Request $request, $id){
-      if ($request->session()->exists('acbabcab')) {
+      if ($request->session()->exists('product'.$id)) {
         $product = DB::table('products')
         ->select('name','image','price','discount')
         ->where('published','=', 1)
@@ -21,14 +21,14 @@ class CartController extends Controller
        }{
          $data['price'] = $product->price;
        }
+        $data['id']= $id ;
         $data['image']= $product->image;
         $data['name']= $product->name;
-        $a = Session::get('acbabcab');
-
+        $a = Session::get('product'.$id);
         $data['quantity'] = $request->input('quantity') + $a['quantity'];
         $data['Total'] = $data['price'] *$data['quantity'];
-        Session()->put('acbabcab',$data);
-        $value = $request->session()->pull( $id, 'image');
+        Session()->put('product'.$id,$data);
+     
         return redirect()->back()->with('success','them thanh cong');
  
       }else{ 
@@ -45,9 +45,9 @@ class CartController extends Controller
        }
         $data['image']= $product->image;
         $data['name']= $product->name;
-        $data['quantity'] =33;
+        $data['quantity'] =$request->input('quantity');
         $data['Total'] = $data['price'] *$data['quantity'];
-        Session()->put('acbabcab',$data);
+        Session()->put('product'.$id,$data);
         $value = $request->session()->pull( $id, 'image');
         return redirect()->back()->with('success','them thanh cong');
         
@@ -56,7 +56,7 @@ class CartController extends Controller
 
     }
     public function delete_session( Requset $request , $id){
-      $request->Session()->forget($id);
+      $request->Session()->forget('product'.$id);
       return redirect()->back()->with('success','da san phanm trong gio hang');
      }
       
