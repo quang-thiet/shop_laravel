@@ -165,13 +165,15 @@
                                     </li>
                                     <li class="mini-cart"><a href="#"><i class="flaticon-shopping-cart"></i> <span class="mini-cart-total">$300.00(2)</span></a>
                                         <!--Mini Cart Dropdown Start-->
-                                        <div class="header-cart">
+                                        <div class="header-cart" >
                                             @php
                                                 $carts = session()->all();
+                                               
                                             @endphp
-                                            <ul class="cart-items">
+                                            <ul class="cart-items" style="overflow: auto ;; height :212px ;width = 100 px" >
+                                                
                                                @foreach ($carts as $item)
-                                                   @if (is_array($item) && sizeof($item)== 5)
+                                                   @if (is_array($item) && sizeof($item)== 6)
                                                    <li class="single-cart-item">
                                                     <div class="cart-img">
                                                         <a href="cart.html"><img src="/template/client/assets/images/cart/cart1.jpg" alt=""></a>
@@ -179,10 +181,10 @@
                                                     <div class="cart-content">
                                                         <h5 class="product-name"><a href="single-product.html">{{$item['name']}}</a></h5>
                                                         <span class="product-quantity">{{$item['quantity']}} ×</span>
-                                                        <span class="product-price">${{$item['price']}}.00</span>
+                                                        <span class="product-price">${{$item['price']}}</span>
                                                     </div>
                                                     <div class="cart-item-remove">
-                                                        <a title="Remove" href="{{route('delete.cart'.['id'->$item['id']])}}"><i class="fa fa-trash"></i></a>
+                                                        <a href="{{route('delete.cart',['id'=>$item['id']])}}" title="Remove" href=""><i class="fa fa-trash"></i></a>
                                                     </div>
                                                 </li>
                                                    @endif

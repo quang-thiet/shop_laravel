@@ -4,9 +4,9 @@
 @if (session()->has('success'))
 <div class="alert alert-success">{{ session()->get('success') }}</div>
 @endif
-@if(session()->has('{{$product->id}}')){
-    <a class="btn btn-dangger" href="{{route('delete.cart',['id'=>$product->id])}}"> aaaa</a>
-}@endif
+@if (session()->has('error'))
+<div class="alert alert-danger">{{ session()->get('error') }}</div>
+@endif
   <!-- Page Banner Section Start -->
   <div class="page-banner-section section bg-image" data-bg="assets/images/bg/breadcrumb.png">
     <div class="container">
@@ -16,7 +16,7 @@
                 <div class="page-banner text-left">
                     <h2>Single Product</h2>
                     <ul class="page-breadcrumb">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="{{route('home')}}">Home</a></li>
                         <li>Single Product</li>
                     </ul>
                 </div>
@@ -42,30 +42,9 @@
                                             <img src="{{asset('image/products/'.$product->image )}}" alt="">
                                             <a href="{{asset('image/products/'.$product->image )}}" class="popup-img venobox" data-gall="myGallery"><i class="fa fa-expand"></i></a>
                                         </div>
-                                        <div class="lg-image">
-                                            <img src="assets/images/product/large-product/l-product-2.jpg" alt="">
-                                            <a href="assets/images/product/large-product/l-product-2.jpg" class="popup-img venobox" data-gall="myGallery"><i class="fa fa-expand"></i></a>
-                                        </div>
-                                        <div class="lg-image">
-                                            <img src="assets/images/product/large-product/l-product-3.jpg" alt="">
-                                            <a href="assets/images/product/large-product/l-product-3.jpg" class="popup-img venobox" data-gall="myGallery"><i class="fa fa-expand"></i></a>
-                                        </div>
-                                        <div class="lg-image">
-                                            <img src="assets/images/product/large-product/l-product-4.jpg" alt="">
-                                            <a href="assets/images/product/large-product/l-product-4.jpg" class="popup-img venobox" data-gall="myGallery"><i class="fa fa-expand"></i></a>
-                                        </div>
-                                        <div class="lg-image">
-                                            <img src="assets/images/product/large-product/l-product-5.jpg" alt="">
-                                            <a href="assets/images/product/large-product/l-product-5.jpg" class="popup-img venobox" data-gall="myGallery"><i class="fa fa-expand"></i></a>
-                                        </div>
+                                       
                                     </div>
-                                    <div class="product-details-thumbs">
-                                        <div class="sm-image"><img src="assets/images/product/small-product/s-product-1.jpg" alt="product image thumb"></div>
-                                        <div class="sm-image"><img src="assets/images/product/small-product/s-product-2.jpg" alt="product image thumb"></div>
-                                        <div class="sm-image"><img src="assets/images/product/small-product/s-product-3.jpg" alt="product image thumb"></div>
-                                        <div class="sm-image"><img src="assets/images/product/small-product/s-product-4.jpg" alt="product image thumb"></div>
-                                        <div class="sm-image"><img src="assets/images/product/small-product/s-product-5.jpg" alt="product image thumb"></div>
-                                    </div>
+                                   
                                 </div>
                                 <!--Product Details Left -->
                             </div>
@@ -78,7 +57,7 @@
                                         <a href="#"><i class="fa fa-angle-right"></i></a>
                                     </div>
                                     <!--Product Nav End-->
-                                    <h2>Classic Chair Wodden</h2>
+                                    <h2>{{$product->name}}</h2>
                                     <div class="single-product-reviews">
                                         <i class="fa fa-star active"></i>
                                         <i class="fa fa-star active"></i>
@@ -88,12 +67,12 @@
                                         <a class="review-link" href="#">(1 customer review)</a>
                                     </div>
                                     <div class="single-product-price">
-                                        <span class="price new-price">${{$product->price}}.00</span>
-                                        <span class="regular-price">${{$product->discount}}.00</span>
+                                        <span class="price new-price">${{$product->price}}</span>
+                                        <span class="regular-price">${{$product->discount}}</span>
                                         <div class="product-quantity">
                                             <span><h3>số lượng :{{$product->quantity}}</h3></span>
                                         </div>
-                                      
+     
                                     </div>
                                     <div class="product-description">
                                         <p>{{$product->description}}</p>
@@ -102,7 +81,7 @@
                                     <div class="single-product-quantity">
                                         <form class="add-quantity" action="{{route('add.cart',['id'=>$product->id])}}">
                                             <div class="product-quantity">
-                                                <input value="1" name="quantity" type="number">
+                                                <input value="1" name="quantity" type="number" min="1" max="{{$product->quantity}}" >
                                             </div>
                                           
                                             <div class="add-to-link">
@@ -112,7 +91,7 @@
                                     </div>
                                     <div class="wishlist-compare-btn">
                                         <a href="#" class="wishlist-btn">Add to Wishlist</a>
-                                        <a href="#" class="add-compare">Compare</a>
+                                        <a href="#" class="add-compare">Oder</a>
                                     </div>
                                     <div class="product-meta">
                                         <span class="posted-in">

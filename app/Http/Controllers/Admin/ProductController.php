@@ -6,7 +6,7 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
-
+use Illuminate\Support\Facades\View;
 class ProductController extends Controller
 {
     /**
@@ -29,6 +29,7 @@ class ProductController extends Controller
     public function create()
     {   
         $categories = Category::get();
+        View::share('category',$categories);
         return view('Screen.admin.product.add',compact('categories'));
     }
 
@@ -40,7 +41,9 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
+        
         $data = $request->all();
+        
         if(!empty($request->input('categories'))){
             $category_id = implode("|", $request->input('categories'));
             $data['category_id']= $category_id;
@@ -51,8 +54,8 @@ class ProductController extends Controller
         $data['image']= $fileName;
         $data['create_at']= now();
         $data['update_at']=now();
-        Product::create($data);
-        return redirect()->route('product.list')->with('success','thêm thành công');
+        $product = Product::create($data);
+        return response()->json($product , 201);
         
     }
 

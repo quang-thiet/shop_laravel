@@ -218,31 +218,33 @@
 
                 <div class="row">
                  @foreach ($products as $item)
-                     <!--  Single Grid product Start -->
-                     <div class="single-grid-product mb-40">
-                        <div class="product-image">
-                            <div class="product-label">
-                                <span>-20%</span>
-                            </div>
-                            <a href="{{route('single.product',['slug'=>$item->name ,'id' =>$item->id])}}">
-                                <img src="{{asset('image/products/'.$item->image )}}" class="img-fluid" alt="">
-                                <img src="{{asset('image/products/'.$item->image )}}" class="img-fluid" alt="">
-                            </a>
+                 <div class="col-lg-3 col-md-4 col-sm-6">
+                    <!--  Single Grid product Start -->
+                    <div class="single-grid-product mb-40">
+                       <div class="product-image">
+                           <div class="product-label">
+                               <span>-20%</span>
+                           </div>
+                           <a href="{{route('single.product',['slug'=>$item->name ,'id' =>$item->id])}}">
+                               <img src="{{asset('image/products/'.$item->image )}}" class="img-fluid" alt="">
+                               <img src="{{asset('image/products/'.$item->image )}}" class="img-fluid" alt="">
+                           </a>
 
-                            <div class="product-action">
-                                <ul>
-                                    <li><a href="cart.html"><i class="fa fa-cart-plus"></i></a></li>
-                                    <li><a href="#quick-view-modal-container" data-toggle="modal" title="Quick View"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="wishlit.html"><i class="fa fa-heart-o"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="title"> <a href="{{route('single.product',['slug'=>$item->name ,'id' =>$item->id])}}">Janus Table Lamp</a></h3>
-                            <p class="product-price"><span class="discounted-price">${{$item->discount}}.00</span> <span class="main-price discounted">${{$item->price}}0.00</span></p>
-                        </div>
-                    </div>
-                    <!--  Single Grid product End -->
+                           <div class="product-action">
+                               <ul>
+                                   <li><a href="cart.html"><i class="fa fa-cart-plus"></i></a></li>
+                                   <li><a href="#quick-view-modal-container" data-toggle="modal" title="Quick View"><i class="fa fa-eye"></i></a></li>
+                                   <li><a href="wishlit.html"><i class="fa fa-heart-o"></i></a></li>
+                               </ul>
+                           </div>
+                       </div>
+                       <div class="product-content">
+                           <h3 class="title"> <a href="{{route('single.product',['slug'=>$item->name ,'id' =>$item->id])}}">{{$item->name}}</a></h3>
+                           <p class="product-price"><span class="discounted-price">${{$item->discount}}</span> <span class="main-price discounted">${{$item->price}}0.00</span></p>
+                       </div>
+                   </div>
+                   <!--  Single Grid product End -->
+                   </div>
                  @endforeach
                  
 

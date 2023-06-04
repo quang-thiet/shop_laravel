@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/single-{slug}-{id}', [HomeController::class, 'SingleProduct'])->name('single.product');
 
 
@@ -58,7 +58,7 @@ Route::middleware('auth', 'check.admin')->prefix('admin')->group(function () {
 
 #cart
 Route::get('/cart-{id}',[CartController::class,'store'])->name('add.cart');
-Route::get('carrt/{id}', [CartController::class,'delete'])->name('delete.cart');
+Route::get('/delete-cart/{id}', [CartController::class,'delete_session'])->name('delete.cart');
 
 
 #login
