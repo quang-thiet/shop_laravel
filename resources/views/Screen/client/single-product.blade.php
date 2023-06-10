@@ -85,7 +85,7 @@
                                             </div>
                                           
                                             <div class="add-to-link">
-                                                <button class="btn"><i class="fa fa-shopping-bag"></i>add to cart</button>
+                                                <button class="btn add_to_cart"><i class="fa fa-shopping-bag"></i>add to cart</button>
                                             </div>
                                         </form>
                                     </div>
@@ -583,10 +583,6 @@
 
     </div>
 </div>
+
 @endsection
 
-@section('product')
-
- 
- 
-@endsection

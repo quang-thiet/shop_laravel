@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\CartController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -56,8 +56,14 @@ Route::middleware('auth', 'check.admin')->prefix('admin')->group(function () {
 
 });
 
+
+#client
+
+
 #cart
+Route::get('/list-cart',[CartController::class,'index'])->name('list.cart.user');
 Route::get('/cart-{id}',[CartController::class,'store'])->name('add.cart');
+route::get('/update-cart',[CartController::class,'update'])->name('update.cart');
 Route::get('/delete-cart/{id}', [CartController::class,'delete_session'])->name('delete.cart');
 
 

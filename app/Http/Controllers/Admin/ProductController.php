@@ -55,7 +55,7 @@ class ProductController extends Controller
         $data['create_at']= now();
         $data['update_at']=now();
         $product = Product::create($data);
-        return response()->json($product , 201);
+        return redirect()->route('product.list')->with('success','thêm thành công');
         
     }
 

@@ -34,7 +34,7 @@
                         <div class="col-xl-3 col-lg-2 col-md-4 col-12">
                             <!--Logo Area Start-->
                             <div class="logo-area">
-                                <a href="index.html"><img src="/template/client/assets/images/logo.png" alt=""></a>
+                                <a href="{{route('home')}}"><img src="/template/client/assets/images/logo.png" alt=""></a>
                             </div>
                             <!--Logo Area End-->
                         </div>
@@ -129,81 +129,87 @@
                             <!--Header Search And Mini Cart Area Start-->
                             <div class="header-search-cart-area">
                                 <ul>
-                                    <li><a class="header-search-toggle" href="#"><i class="flaticon-magnifying-glass"></i></a></li>
-                                    <li class="currency-menu"><a href="#"><i class="flaticon-user"></i></a>
-                                        <!--Crunccy dropdown-->
-                                        <ul class="currency-dropdown">
-                                            <!--Language Currency Start-->
-                                            <li><a href="#">language</a>
-                                                <ul>
-                                                    <li class="active"><a href="#"><img src="/template/client/assets/images/icons/en-gb.png" alt="">English</a></li>
-                                                    <li><a href="#"><img src="/template/client/assets/images/icons/de-de.png" alt="">French</a></li>
-                                                </ul>
-                                            </li>
-                                            <!--Language Currency End-->
-                                            <!--USD Currency Start-->
-                                            <li><a href="#">Currency</a>
-                                                <ul>
-                                                    <li><a href="#"> € Euro</a></li>
-                                                    <li><a href="#"> $ US Dollar</a></li>
-                                                </ul>
-                                            </li>
-                                            <!--USD Currency End-->
-                                            <!--Account Currency Start-->
-                                            <li><a href="my-account.html">My account</a>
-                                                <ul>
-                                                    <li><a href="login-register.html">Login</a></li>
-                                                    <li><a href="checkout.html">Checkout</a></li>
-                                                    <li><a href="my-account.html">My account</a></li>
-                                                    <li><a href="cart.html">Cart</a></li>
-                                                    <li><a href="wishlist.html">Wishlist</a></li>
-                                                </ul>
-                                            </li>
-                                            <!--Account Currency End-->
-                                        </ul>
-                                        <!--Crunccy dropdown-->
-                                    </li>
-                                    <li class="mini-cart"><a href="#"><i class="flaticon-shopping-cart"></i> <span class="mini-cart-total">$300.00(2)</span></a>
-                                        <!--Mini Cart Dropdown Start-->
-                                        <div class="header-cart" >
-                                            @php
-                                                $carts = session()->all();
-                                               
-                                            @endphp
-                                            <ul class="cart-items" style="overflow: auto ;; height :212px ;width = 100 px" >
-                                                
-                                               @foreach ($carts as $item)
-                                                   @if (is_array($item) && sizeof($item)== 6)
-                                                   <li class="single-cart-item">
-                                                    <div class="cart-img">
-                                                        <a href="cart.html"><img src="/template/client/assets/images/cart/cart1.jpg" alt=""></a>
-                                                    </div>
-                                                    <div class="cart-content">
-                                                        <h5 class="product-name"><a href="single-product.html">{{$item['name']}}</a></h5>
-                                                        <span class="product-quantity">{{$item['quantity']}} ×</span>
-                                                        <span class="product-price">${{$item['price']}}</span>
-                                                    </div>
-                                                    <div class="cart-item-remove">
-                                                        <a href="{{route('delete.cart',['id'=>$item['id']])}}" title="Remove" href=""><i class="fa fa-trash"></i></a>
-                                                    </div>
+                                        <li><a class="header-search-toggle" href="#"><i class="flaticon-magnifying-glass"></i></a></li>
+                                        <li class="currency-menu"><a href="#"><i class="flaticon-user"></i></a>
+                                            <!--Crunccy dropdown-->
+                                            <ul class="currency-dropdown">
+                                                <!--Language Currency Start-->
+                                                <li><a href="#">language</a>
+                                                    <ul>
+                                                        <li class="active"><a href="#"><img src="/template/client/assets/images/icons/en-gb.png" alt="">English</a></li>
+                                                        <li><a href="#"><img src="/template/client/assets/images/icons/de-de.png" alt="">French</a></li>
+                                                    </ul>
                                                 </li>
-                                                   @endif
-                                               @endforeach
-                                                
+                                                <!--Language Currency End-->
+                                                <!--USD Currency Start-->
+                                                <li><a href="#">Currency</a>
+                                                    <ul>
+                                                        <li><a href="#"> € Euro</a></li>
+                                                        <li><a href="#"> $ US Dollar</a></li>
+                                                    </ul>
+                                                </li>
+                                                <!--USD Currency End-->
+                                                <!--Account Currency Start-->
+                                                <li><a href="my-account.html">My account</a>
+                                                    <ul>
+                                                        <li><a href="login-register.html">Login</a></li>
+                                                        <li><a href="checkout.html">Checkout</a></li>
+                                                        <li><a href="my-account.html">My account</a></li>
+                                                        <li><a href="cart.html">Cart</a></li>
+                                                        <li><a href="wishlist.html">Wishlist</a></li>
+                                                    </ul>
+                                                </li>
+                                                <!--Account Currency End-->
                                             </ul>
-                                            <div class="cart-total">
-                                                <h5>Subtotal :<span class="float-right">$39.79</span></h5>
-                                                <h5>Eco Tax (-2.00) :<span class="float-right">$7.00</span></h5>
-                                                <h5>VAT (20%) : <span class="float-right">$0.00</span></h5>
-                                                <h5>Total : <span class="float-right">$46.79</span></h5>
+                                            <!--Crunccy dropdown-->
+                                        </li>
+                                        @php
+                                        $carts = session()->get('carts');
+                                        $total = 0 ; 
+                                        @endphp
+                                        <li class="mini-cart"><a href="#"><i class="flaticon-shopping-cart"></i> <span class="mini-cart-total">${{$total}}(0)</span></a>
+                                            <!--Mini Cart Dropdown Start-->
+                                            <div class="header-cart" >
+                                              
+                                                <ul class="cart-items" style="overflow: auto ; height :212px ;width = 190 px" >
+                                                    
+                                                @if (!empty($carts))
+                                                @foreach ($carts as $item)
+                                                @php
+                                                $total= $item['price'] * $item['quantity']
+                                                @endphp
+                                                <li class="single-cart-item">
+                                                <div class="cart-img">
+                                                    <a href="{{route('single.product',['slug' =>$item['name'],'id'=>$item['id']])}}"><img src="{{asset('/image/products/'.$item['image'])}}" alt=""></a>
+                                                </div>
+                                                <div class="cart-content">
+                                                    <h5 class="product-name"><a href="single-product.html">{{$item['name']}}</a></h5>
+                                                    <span class="product-quantity">{{$item['quantity']}} ×</span>
+                                                    <span class="product-price">${{$item['price']}}</span>
+                                                </div>
+                                                <div class="cart-item-remove">
+                                                    <a href="{{route('delete.cart',['id'=>$item['id']])}}" title="Remove" href=""><i class="fa fa-trash"></i></a>
+                                                </div>
+                                            </li> 
+                                            @endforeach
+                                            
+                                                @else
+                                                <samp class="text-danger">giỏ hàng trống </samp> 
+                                                @endif
+                                                </ul>
+                                                <div class="cart-total">
+                                                    <h5>Subtotal :<span class="float-right">$39.79</span></h5>
+                                                    <h5>Shipping Fee:<span class="float-right">$7</span></h5>
+                                                    <h5>VAT (20%) : <span class="float-right"></span></h5>
+                                                    <h5>Total : <span class="float-right">{{$total}}</span></h5>
+                                                </div>
+                                                <div class="cart-btn">
+                                                    <a href="{{route('list.cart.user')}}">View Cart</a>
+                                                    <a href="checkout.html">checkout</a>
+                                                </div>
                                             </div>
-                                            <div class="cart-btn">
-                                                <a href="cart.html">View Cart</a>
-                                                <a href="checkout.html">checkout</a>
-                                            </div>
-                                        </div>
-                                        <!--Mini Cart Dropdown End-->
-                                    </li>
+                                            <!--Mini Cart Dropdown End-->
+                                        </li>
                                 </ul>
                             </div>
                             <!--Header Search And Mini Cart Area End-->
