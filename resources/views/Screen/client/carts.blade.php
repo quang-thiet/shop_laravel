@@ -4,10 +4,11 @@
     <div class="cart-section section pt-90 pt-lg-70 pt-md-60 pt-sm-50 pt-xs-45  pb-70 pb-lg-50 pb-md-40 pb-sm-30 pb-xs-20">
         <div class="container">
             <div class="row">
-
+              
                 <div class="col-12">
                     <!-- Cart Table -->
-                    <div class="cart-table table-responsive mb-30 update_cart" data-url="{{ route('update.cart') }}">
+                    <div class="cart-table table-responsive mb-30 update_cart" data-url="{{route('update.cart')}}">
+
                         <table class="table">
                             <thead>
                                 <tr>
@@ -21,18 +22,21 @@
                             </thead>
                             @php
                                 $carts = session()->get('carts');
-                                $a = 'wewe';
+                                $total_all = 0;
                             @endphp
                             <tbody>
                                 @if (!empty($carts))
                                     {
                                     @foreach ($carts as $item)
+                                    @php
+                                        $total_all += $item['total'];
+                                    @endphp
                                         <tr>
                                             <td class="pro-thumbnail"><a href="#"><img
                                                         src="{{ asset('/image/products/' . $item['image']) }}"
                                                         alt="Product"></a></td>
                                             <td class="pro-title"><a href="#">{{ $item['name'] }}</a></td>
-                                            <td class="pro-price"><span>${{ $item['price'] }}</span></td>
+                                            <td class="pro-price"><span id="{{$item['id']}}_price">${{ $item['price'] }}</span></td>
                                             <td class="pro-quantity">
                                                 <div class="pro-qty update_price"><input data-id="{{ $item['id'] }}"
                                                         type="number" value="{{ $item['quantity'] }}" min="1"></div>
@@ -75,13 +79,16 @@
                                 <div class="cart-summary">
                                     <div class="cart-summary-wrap">
                                         <h4>Cart Summary</h4>
-                                        <p>Sub Total <span>$75.00</span></p>
-                                        <p>Shipping Cost <span>$00.00</span></p>
-                                        <h2>Grand Total <span>$75.00</span></h2>
+                                        <p>Sub Total <span>${{$total_all}}</span></p>
+                                        <p>Shipping Cost <span>$2</span></p>
+                                        <h2>Grand Total <span>${{$total_all +2 }}</span></h2>
                                     </div>
                                     <div class="cart-summary-button">
-                                        <button class="btn">Checkout</button>
-                                        <button class="btn update_carts" data-url="{{route('list.cart.user')}}" >Update Cart</button>
+                                        <button class="btn check_out"  
+                                        data-url="{{route('check.out')}}">Checkout</button>
+                                        <button class="btn update_carts" data-url="{{route('update.cart')}}"
+                                            id="34">Update
+                                            Cart</button>
                                     </div>
                                 </div>
                             </div>
@@ -116,42 +123,59 @@
                     quantity: quantity,
                 },
                 statusCode: {
-                    400: function(data) {
-
-                        alert(data.data);
+                    204: function(data) {
+                      
                     },
-
-                    200: function(data) {
-
-                        alert(data.data);
-
-
-                    }
-
 
                 }
 
             })
         }
-        function update_all(event){
+        function check_out(){
+    
+            let urlCheckOut = $(this).data('url');
+            alert(urlCheckOut);
+            window.location.href = urlCheckOut ;
+        }
+
+        function update_all(event) {
             event.preventDefault();
             let url_update = $(this).data('url');
+            let type_update = 200 ;
             $.ajax({
-                type:"GET",
-                url:url_update,
-                
-
+                type: "GET",
+                url: url_update,
+               data:{
+                abc:type_update
+               },
+               statusCode: {
+                200: function(data){
+                    alert('update thanh cong !!');
+                    $('#main-wrapper').html(data.cart_component);
+                }
+               }
+               
             })
         }
-        $(function() {
+        $(document).ready(function() {
+            $(function() {
+
+                $("#34").on('click', update_all);
+
+            })
 
             $(function() {
 
                 $("input").change(update);
-                $(".update_carts").on('click',update_all);
 
             })
-            
+
+            $(function(){
+                $('.check_out').on('click',check_out)
+            })
+
+
+
 
         })
     </script>

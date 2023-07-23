@@ -6,17 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-     /**
+    /**
      * Run the migrations.
      *
      * @return void
      */
     public function up()
     {
-        Schema::table('products',function(Blueprint $table){
-            $table->text('detail')->after('description');
-            $table->integer('published')->after('vote');
-            
+        Schema::create('order', function (Blueprint $table) {
+            $table->id();
+            $table->tinyInteger('user_id');
+            $table->integer('sub_total');
+            $table->integer('grand_total');
+            $table->tinyInteger('status');
+            $table->text('note')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -27,9 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('products',function(Blueprint $table){
-            $table->drop('detail');
-            $table->drop('published');
-        });
+        Schema::dropIfExists('order');
     }
 };

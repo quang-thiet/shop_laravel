@@ -27,6 +27,7 @@ if (!function_exists('showCategories')){
 }
 
 
+
 if(!function_exists('selectCategories')){
     function selectCategories($categories, $parent_id = 0, $char = ''){
         foreach ($categories as $key => $item)
@@ -69,5 +70,9 @@ if(!function_exists('checkboxCategories')){
         }
     }
 }
+
+
+
+
 
 

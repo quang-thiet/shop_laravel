@@ -175,11 +175,12 @@
                  
 
                 </div>
-
+                {{$products->links();}}
             </div>
         </div>
+       
         <!--Blog section end-->
-
+    
 
         <!-- Testimonial Area Start -->
         <div class="testimonial-section section pb-80 pb-lg-60 pb-md-50 pb-sm-40 pb-xs-40">

@@ -1,12 +1,19 @@
 <?php
 
+use App\Events\OrderEvent;
+use App\Jobs\ProcessOrderEvent;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\CartController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Client\CheckOutController;
+use App\Http\Controllers\Client\ProfileController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\TestQueueController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,7 +64,10 @@ Route::middleware('auth', 'check.admin')->prefix('admin')->group(function () {
 });
 
 
-#client
+######## client
+
+#profile
+Route::get('profile',[ProfileController::class,'index'])->name('profile');
 
 
 #cart
@@ -65,6 +75,15 @@ Route::get('/list-cart',[CartController::class,'index'])->name('list.cart.user')
 Route::get('/cart-{id}',[CartController::class,'store'])->name('add.cart');
 route::get('/update-cart',[CartController::class,'update'])->name('update.cart');
 Route::get('/delete-cart/{id}', [CartController::class,'delete_session'])->name('delete.cart');
+
+
+#check out
+
+Route::get('check-out',[CheckOutController::class,'index'])->name('check.out')->middleware('auth');
+Route::post('process-check-out',[CheckOutController::class,'ProcessCheckout'])->name('process.check.out');
+
+route::get('check-out-success',[CheckOutController::class,'checkout_success']);
+
 
 
 #login
@@ -82,3 +101,32 @@ Route::post('/auth/register', [RegisterController::class, 'ProcessRegister'])->n
 #logout
 
 Route::get('logout', [LoginController::class, 'Logout'])->name('logout');
+
+
+#test Queue
+
+Route::get('store-queue',[TestQueueController::class,'storeQueue']);
+
+#test Event
+
+Route::get('store-event',function(){
+    $data_order = [
+        'ab'=>2,
+        'sds'=>4
+        ] ;
+    $data_items= 2;
+    
+    ProcessOrderEvent::dispatch($data_order,$data_items);
+    // dispatch(new ProcessOrderEvent($data_order, $data_items));
+    return true ; 
+});
+
+#test send mail
+
+Route::get('send_mail',[EmailController::class,'Send_mail']);
+
+
+#test
+
+Route::get('form-test',[TestController::class,'index']);
+Route::post('process',[TestController::class,'process'])->name('test');

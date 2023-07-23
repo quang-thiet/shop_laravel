@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table){
             $table->id();
             $table->string('name');
             $table->string('description');
@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('image');
             $table->integer('discount');
             $table->string('quantity');
+            $table->text('detail');
+            $table->tinyInteger('published');
             $table->integer('vote')->default(0);
             $table->string('category_id')->nullable();
             $table->timestamps();

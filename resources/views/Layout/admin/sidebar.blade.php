@@ -61,5 +61,5 @@
             </li>
           </ul>
         </li>
-        <a class="btn btn-primary mr-2" href="">LOGOUT</a>
+        <a class="btn btn-primary mr-2" href="{{route('logout')}}">LOGOUT</a>
       

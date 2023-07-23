@@ -5,13 +5,12 @@ namespace App\Http\Controllers\Admin\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
     public function index(){
-        if(Auth::check()){
-            return redirect()->route('user.list');
-        }
+        Session::put('previous_url',url()->previous());
         return view('Auth.login');
     }
     public function ProcessLogin(LoginRequests $request)
@@ -26,7 +25,9 @@ class LoginController extends Controller
     
         if(Auth::attempt($data,$remember))
         {
-            return redirect()->back();
+            $previous_url = session()->get('previous_url');
+            session()->forget('previous_url');
+            return redirect()->to($previous_url);
         }{
            return redirect()
             ->back()

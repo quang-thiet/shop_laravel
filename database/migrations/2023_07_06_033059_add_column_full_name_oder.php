@@ -13,10 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('oders', function (Blueprint $table) {
-            $table->id();
-          
-            $table->timestamps();
+        Schema::table('order',function( Blueprint $table){
+            $table->string('full_name')->after('sub_total');
         });
     }
 
@@ -27,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('oders');
+        Schema::table('order',function(Blueprint $table){
+            $table->drop('full_name');
+        });
     }
 };

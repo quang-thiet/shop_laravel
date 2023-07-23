@@ -6,23 +6,43 @@
             <div class="col-md-8">
                 <div class="card card-custom">
                     <div class="card header">
-                        <h3 class="card-title">thông tin tài khoản </h3>
+                        <h3 class="card-title">ADD USER </h3>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="">name
+                            <label for="">Display name
                                 <span class="text-danger">*</span>
                             </label>
-                            <input type="text" class="form-control" value="" name="name"
+                            <input type="text" class="form-control" value="{{old('display_name')}}" name="display_name"
                                 placeholder="Nhật tên user">
-                            @error('name')
+                            @error('display_name')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">first name
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" value="{{old('first_name')}}" name="first_name"
+                                placeholder="first name">
+                            @error('first_name')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">last name
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" value="{{old('last_name')}}" name="last_name"
+                                placeholder="last name ">
+                            @error('last_name')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label>Email
                                 <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" value="" name="email"
+                            <input type="text" class="form-control" value="{{old('email')}}" name="email"
                                 placeholder="Nhập email">
                             @error('email')
                                 <p class="text-danger">{{ $message }}</p>
@@ -31,16 +51,54 @@
                         <div class="form-group">
                             <label>password
                                 <span class="text-danger">*</span></label>
-                            <input name="password" type="password" rows="4" class="form-control"
+                            <input name="password" value="{{old('password')}}" type="password" rows="4" class="form-control"
                                 placeholder="Nhập password" value=""></input>
                             @error('password')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="">Nunber phone 
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="number" class="form-control" value="" name="number_phone"
+                                placeholder="Number phone">
+                            @error('number_phone')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">Address
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" value="" name="address"
+                                placeholder="Nhật tên user">
+                            @error('address')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">Gender</label>
+                            <div class="radio-inline">
+                                <label for="" class="radio radio-rounded">
+                                    <input type="radio" value="1" name="gender">
+                                    <span>không xác định</span>
+                                </label>
+                                <label for="" class="radio radio-rounded">
+                                    <input type="radio" name="gender"  value="2">
+                                    <span>Boy</span>
+                                </label>
+                                <label for="" class="radio radio-rounded">
+                                    <input type="radio" name="gender" value="3" id="">
+                                    <span>Women</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label>vai trò</label>
                             <div class="radio-inline">
-                                @if (Auth::user()->role == 1 || Auth::user()->role == 3)
+                                @if (Auth::user()->role == 0 || Auth::user()->role == 1)
                                     <label class="radio radio-rounded">
                                         <input type="radio" value="1" name="role">
                                         <span></span>manage</label>

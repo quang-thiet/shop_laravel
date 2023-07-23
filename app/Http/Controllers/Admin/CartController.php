@@ -12,8 +12,8 @@ class CartController extends Controller
 {
     public function index(){
       // session()->forget('carts');
-      // dd(session()->get('carts'));
-      return view('Screen.client.carts');
+      $carts = session()->get('carts') ;
+      return view('Screen.client.carts',compact('carts'));
     }   
 
 
@@ -30,12 +30,12 @@ class CartController extends Controller
       if(isset($carts[$id])){
        
         $data =  $carts[$id]['quantity'] += $request->input('quantity');
-
+        
 
         if(!empty($product->discount) && (int)$product->discount != (int)$carts[$id]['price']){
         
         $carts[$id]['price']= $product->discount;
-
+         
         }
        
         if( (int)$data >(int)($product->quantity) ){
@@ -48,9 +48,11 @@ class CartController extends Controller
         $carts[$id]['quantity'] = $data;
         $carts[$id]['price']= $product->price;
         $carts[$id]['total'] = $carts[$id]['quantity'] * $carts[$id]['price'];
+        
 
 
       }else{
+        
 
         if(empty($product->discount)){
 
@@ -62,10 +64,13 @@ class CartController extends Controller
             'quantity'=> $request->input('quantity')
   
           ];
-            session()->put('carts',$carts);
-            return back()->with('success','thêm thành công vào giỏ hàng');
           
+            
+            session()->put('carts',$carts);
+            return back()->with('success','thêm thành công vào giỏ hàng'); 
         }
+
+      
         $carts[$id]=[
           'id'       => $id,
           'name'     => $product->name,
@@ -73,12 +78,11 @@ class CartController extends Controller
           'image'    => $product->image,
           'total'    => $request->input('quantity')*$product->discount,
           'quantity' => $request->input('quantity')
-        ];     
-       
+        ]; 
+        
       }
-
       session()->put('carts',$carts);
-      return back()->with('success','thêm thành công vào giỏ hàng');
+      return back()->with('success','thêm thành công vào giỏ hàngg');
     }
 
 
@@ -86,6 +90,15 @@ class CartController extends Controller
     public function update(Request $request){
       
       $data = $request->all();
+      if(isset($data['abc'])){
+        $carts = session()->get('carts');
+        
+        $cart_component= view('Screen.client.carts',compact('carts'))->render();
+        return response()->json([
+          'cart_component' => $cart_component
+        ],200);
+      }
+     
       
       $product = DB::table('products')
       ->select('name','image','price','discount','quantity','id')
@@ -123,8 +136,6 @@ class CartController extends Controller
 
         $carts[$data['id']]['total'] = $carts[$data['id']]['quantity'] * $carts[$data['id']]['price'];
 
-      
-
         session()->put('carts',$carts);
 
         return response()->json([
@@ -132,14 +143,14 @@ class CartController extends Controller
         ],204);
         
       }
-      
+
     }
 
 
-
-
-    public function delete_session( Request $request , $id){
-      $request->Session()->forget('carts'.[$id]);
+    public function delete_session($id){
+      $data = session()->get('carts');
+      unset($data[$id]);
+      session()->put('carts',$data);
       return redirect()->back()->with('success','xoa thành công');
      }
       

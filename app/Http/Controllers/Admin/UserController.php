@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -21,10 +22,11 @@ class UserController extends Controller
         return view('Screen.admin.user.add');
     }
 
-    public function store(UserRequest $request)
+    public function store(Request $request)
     { 
         
         $data = $request->all();
+        
        
         $fileExtension = $request->file('thumbnail')->getClientOriginalExtension();
         $fileName= 'user-'.time().'.'.$fileExtension;
@@ -33,6 +35,7 @@ class UserController extends Controller
         $data['password']= Hash::make($request->password);
         $data['created_at']= now();
         $data['update_at']=now();
+        
         User::create($data);
         return redirect()->route('user.list')->with('success','thêm thành công');
         

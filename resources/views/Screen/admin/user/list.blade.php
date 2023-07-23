@@ -104,10 +104,10 @@
        
         <body>
             <tr>
-                <td>{{$user->name}}</td>
+                <td>{{$user->display_name}}</td>
                 <td><img src="{{asset('/image/users/'.$user->avatar)}}" alt="" style="width:50%;object-fit:cover;display:block;margin:0 auto;aspect-ratio:1/1"></td>
                 <td>{{$user->email}}</td>
-                <td>{{$user->role}}</td>
+                <td>{{config("common.role.{$user->role}")}}</td>
                 <td class="datatable-cell text-right" style="width: 15%">
                   <a href="{{ route('user.edit', $user->id) }}"
                       class="btn btn-icon btn-success btn-sm mr-2"><i

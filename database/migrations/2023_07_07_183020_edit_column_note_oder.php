@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('categorys',function(Blueprint $table){
-            $table->integer('parent_id')->after('name');
+        Schema::table('order', function (Blueprint $table) {
+            $table->string('note')->nullable()->change();
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('categorys',function(Blueprint $table){
-            $table->drop('parent_id');
+        Schema::table('order', function (Blueprint $table) {
+            $table->drop('note');
         });
     }
 };
