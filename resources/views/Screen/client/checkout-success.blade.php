@@ -1,5 +1,11 @@
 @extends('Layout.client.main')
 @section('content')
+@if (session()->has('success'))
+<div class="alert alert-success">{{ session()->get('success') }}</div>
+@endif
+@if (session()->has('error'))
+<div class="alert alert-danger">{{ session()->get('error') }}</div>
+@endif
 <div class="checkout-main-area pb-100 pt-100">
     <div class="container">
         <div class="checkout-wrap pt-30">

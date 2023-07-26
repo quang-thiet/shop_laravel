@@ -143,10 +143,15 @@
         <div class="information">
             <div class="col" style="float:left">
                 <div class="font-weight-bold">Ngày đặt hàng</div>
-                
+                <span class="opacity-70">{{ $order->created_at ->format("d-m-Y \l\ú\c H:i")}}</span>
             </div>
             <div class="col" style="float: right;">
                 <div class="font-weight-bold">Địa chỉ thanh toán.</div>
+                <span class="opacity-70">{{ $order->full_name }}</span><br>
+                <span class="opacity-70">{{ $order->number_phone }}</span><br>
+                <span class="opacity-70">{{ $order->email }}</span><br>
+                <span class="opacity-70">{{ $order->address }}</span><br>
+                <span class="opacity-70">{{ $order->note }}</span>
                 
             </div>
         </div>
@@ -157,23 +162,28 @@
                         <th class="text-left">Tên sản phẩm</th>
                         <th>Số lượng</th>
                         <th>Giá</th>
-                        <th>Tùy chọn</th>
+                       
                         <th class="text-right">Tạm tính</th>
                     </tr>
                 </thead>
                 <tbody>
-                     <tr>
-                        <th><h1></h1></th>
-                     </tr>
+                    @foreach ($order->items as $product)
+                    <tr>
+                        <td class="text-left">{{ $product->product_name }}</td>
+                        <td>{{ $product->quantity }}</td>
+                        <td>{{ $product->price }}</td>
+                        <td class="text-right">{{ $product->total }}</td>
+                    </tr>
+                    @endforeach
                 </tbody>
                 <tfoot>
                     <tr>
                         <th class="text-left">Trạng thái</th>
-                        <th class="text-right text-color-danger" colspan="3">hoan thanh</th>
+                        <th class="text-right text-color-danger" colspan="3">{{config("common.order_status.{$order->status}")}}</th>
                     </tr>
                     <tr>
                         <th class="text-left">Tổng thanh toán</th>
-                        <th class="text-right" colspan="3">rerere</th>
+                        <th class="text-right" colspan="3">{{$order->grand_total}}</th>
                     </tr>
                 </tfoot>
             </table>

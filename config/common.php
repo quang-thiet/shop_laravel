@@ -14,8 +14,9 @@ return[
 
     0   => 'ĐÃ HỦY',
     1   => 'ĐANG XỬ LÝ',
-    2   => 'ĐANG GIAO HÀNG',
-    3   => 'HOÀN THÀNH',
+    2   => 'XÁC NHẬN ĐƠN HÀNG',
+    3   => 'ĐANG GIAO HÀNG',
+    4   => 'HOÀN THÀNH',
 ],
 
 

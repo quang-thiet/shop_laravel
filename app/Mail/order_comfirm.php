@@ -8,22 +8,23 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class order_comfirm extends Mailable
 {
     use Queueable, SerializesModels;
-    public $data_order,$data_items , $subject ;
+    public $data_order, $subject ;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data_order,$data_items,$subject)
+    public function __construct($data_order,$subject)
     {
         $this->data_order = $data_order;
-        $this->data_items = $data_items;
+        
         $this->subject = $subject;
-        $this->queue =1;
+      
     }
 
     /**
@@ -49,10 +50,11 @@ class order_comfirm extends Mailable
             view: 'Email.order_confirm',
             with:[
                 'order' => $this->data_order,
-                'items' => $this->data_items,
             ],
            
+           
         );
+        
     }
 
     /**

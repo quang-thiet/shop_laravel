@@ -6,11 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use Carbon\Traits\Test;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    use Test;
+   
+
     public function index()
     {
         $users = User::paginate(5);

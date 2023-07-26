@@ -31,9 +31,8 @@ class CartController extends Controller
        
         $data =  $carts[$id]['quantity'] += $request->input('quantity');
         
+        if(!empty($product->discount) && (int)$product->discount != (int)$carts [$id]['price']){
 
-        if(!empty($product->discount) && (int)$product->discount != (int)$carts[$id]['price']){
-        
         $carts[$id]['price']= $product->discount;
          
         }

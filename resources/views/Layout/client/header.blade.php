@@ -244,7 +244,7 @@
                                                 <ul class="icon-list justify-content-end">
                                                     <li>
                                                         <div class="header-cart-icon">
-                                                            <a href="cart.html"><i class="flaticon-shopping-cart"></i></a>
+                                                            <a href="{{route('list.cart.user')}}"><i class="flaticon-shopping-cart"></i></a>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -268,7 +268,7 @@
                     <!--Mobile Menu end-->
 
                 </div>
-            </div>
+            </div>a
         </header>
         <!--Header Mobile section end-->
 
@@ -289,10 +289,9 @@
                     </div>
                     <nav class="offcanvas-navigation">
                         <ul>
-                            <li class="menu-item-has-children"><a href="#">Home</a>
+                            <li class="menu-item-has-children"><a href="{{route('home')}}">Home</a>
                                 <ul class="submenu2">
-                                    <li><a href="index.html">Home 01</a></li>
-                                    <li><a href="index-2.html">Home 02</a></li>
+                                    <li><a href="{{route('home')}}">Home</a></li>
                                 </ul>
                             </li>
                             <li class="menu-item-has-children"><a href="#">Shop</a>

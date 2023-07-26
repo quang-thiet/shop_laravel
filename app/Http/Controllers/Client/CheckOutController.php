@@ -2,25 +2,44 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Events\OrderEvent;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CheckoutRequest;
 use App\Jobs\ProcessOrderEvent;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use PDO;
 
 class CheckOutController extends Controller
 {
     public function index()
     {
-
-        $carts = session()->get('carts');
-        $user = Auth::user();
         
+        $cart = session()->get('carts')??[];
+        
+        $carts = array_map(function($cart){
+
+            $product = Product::select('name','price','quantity','published','discount')->where('id',$cart['id'])->first();
+
+            $product->price = $product->price ?? $product->discount ;
+           
+            $cart['price'] = ($cart['price'] != $product->price) ? $product->price : $cart['price'];
+
+            if ( $product->published != 1 || $product->quantity == 0 ){
+                unset($cart);
+                return null;
+            }
+            return $cart ; 
+
+        },$cart);
+        
+        $user = User::find(Auth::id());
         return view('Screen.client.checkout', compact('carts','user'));
+
     }
 
 
@@ -42,6 +61,7 @@ class CheckOutController extends Controller
        
         try {
 
+           
             $carts = session()->get('carts');
             $new_array = collect($carts)->values();
             $new_array->toArray();
@@ -57,9 +77,9 @@ class CheckOutController extends Controller
             $data['sub_total'] = $sub_total ;
             $data['grand_total'] = $grand_total;
             $order = Order::query()->create($data);
-        
+          
             $data_item = [];
-            foreach($new_array as &$item){
+            foreach($new_array as $item){
 
                 $item['product_id'] =$item['id'];
                 $item['order_id'] = $order->id ;
@@ -70,10 +90,11 @@ class CheckOutController extends Controller
             
             $order->items()->createMany($data_item);
             $data_order = Order::find($order->id);
-            $data_items = $data_order->user();
-            ProcessOrderEvent::dispatch($data,$data_items);
-            
-            dd('end');
+            $data_orders = $data_order->load('items');
+            $to_email =  $data['email'];
+
+            //  dd();
+            dispatch(new  ProcessOrderEvent( $to_email , $data_orders));
             session()->forget('carts');
             DB::commit();
 

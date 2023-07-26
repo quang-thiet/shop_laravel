@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->integer('published');
-            $table->integer('parent_id')->unsigned()->references('id')->on('categories')->onDelate('cascade');
-            $table->timestamps();
-            
+        Schema::table('order', function (Blueprint $table) {
+            $table->string('address')->after('note');
+            $table->integer('number_phone')->after('address');
         });
     }
 
@@ -30,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::table('order', function (Blueprint $table) {
+            $table->drop('address');
+            $table->dropColumn('number_phone');
+        });
     }
 };

@@ -13,19 +13,20 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
+
 class ProcessOrderEvent implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    public $data_items , $data_order;
+    public $email , $data_order;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($data_order,$data_items)
+    public function __construct($to_email,$data_order,)
     {
-        $this->data_items = $data_items ;
+        $this->email = $to_email ;
         $this->data_order = $data_order ;
     }
 
@@ -37,9 +38,16 @@ class ProcessOrderEvent implements ShouldQueue
     public function handle()
     {    
        try {
-        //code...
+
+        Log::info($this->data_order);
+        
+        $data_email  = new order_comfirm($this->data_order,'xác nhận đơn hàng từ Funiture Ecommerce ');
+        Mail::to($this->email)->send( $data_email);
+        
+           
        } catch (\Exception  $e) {
-         Log::alert();
+        dd($e);
+         Log::alert($e->getMessage());
        }
     }
 }

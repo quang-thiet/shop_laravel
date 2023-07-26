@@ -1,6 +1,12 @@
 @extends('Layout.client.main')
 @section('banner')
- 
+@if (session()->has('success'))
+<div class="alert alert-success">{{ session()->get('success') }}</div>
+@endif
+@if (session()->has('error'))
+<div class="alert alert-danger">{{ session()->get('error') }}</div>
+@endif
+
         <!-- Banner section start -->
         <div class="banner-section section pt-30">
             <div class="container">
@@ -151,7 +157,7 @@
                            <div class="product-label">
                                <span>-20%</span>
                            </div>
-                           <a href="{{route('single.product',['slug'=>$item->name ,'id' =>$item->id])}}">
+                           <a href="{{route('single.product',['slug'=>$item->slug ,'id' =>$item->id])}}">
                                <img src="{{asset('image/products/'.$item->image )}}" class="img-fluid" alt="">
                                <img src="{{asset('image/products/'.$item->image )}}" class="img-fluid" alt="">
                            </a>
@@ -165,7 +171,7 @@
                            </div>
                        </div>
                        <div class="product-content">
-                           <h3 class="title"> <a href="{{route('single.product',['slug'=>$item->name ,'id' =>$item->id])}}">{{$item->name}}</a></h3>
+                           <h3 class="title"> <a href="{{route('single.product',['slug'=>$item->slug ,'id' =>$item->id])}}">{{$item->name}}</a></h3>
                            <p class="product-price"><span class="discounted-price">${{$item->discount}}</span> <span class="main-price discounted">${{$item->price}}0.00</span></p>
                        </div>
                    </div>
@@ -385,7 +391,7 @@
     </div>
     <div class="product-content">
         <h3 class="title"> <a href="single-product.html">Stylish Design Chair</a></h3>
-        <p class="product-price"><span class="discounted-price">$190.00</span> <span class="main-price discounted">$230.00</span></p>
+        <p class="product-price"><span class="discounted-price">$190.00</span> <span class="main-price discounted">$230.000</span></p>
     </div>
 </div>
 <!--  Single Grid product End -->

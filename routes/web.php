@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/single-{slug}-{id}', [HomeController::class, 'SingleProduct'])->name('single.product');
+Route::get('/{slug}/{id}', [ProductController::class,'show'])->where(['id'=> '[0-9]+'])->name('single.product');
 
 
 #admin
@@ -66,8 +66,16 @@ Route::middleware('auth', 'check.admin')->prefix('admin')->group(function () {
 
 ######## client
 
+Route::middleware('auth')->prefix('user')->group(function(){
+
+    Route::get('profile',[ProfileController::class,'index'])->name('profile');
+    Route::post('edit_address',[ProfileController::class,'update_address'])->name('edit.profile');
+    Route::post('update_information',[ProfileController::class,'update_information'])->name('update.information.profile');
+    
+});
+
 #profile
-Route::get('profile',[ProfileController::class,'index'])->name('profile');
+
 
 
 #cart
@@ -112,10 +120,11 @@ Route::get('store-queue',[TestQueueController::class,'storeQueue']);
 Route::get('store-event',function(){
     $data_order = [
         'ab'=>2,
-        'sds'=>4
+        'sds'=>4,
+        'ghgfhgf'=>'hgfghf',
         ] ;
     $data_items= 2;
-    
+    dd(gettype($data_order));
     ProcessOrderEvent::dispatch($data_order,$data_items);
     // dispatch(new ProcessOrderEvent($data_order, $data_items));
     return true ; 

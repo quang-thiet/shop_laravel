@@ -17,7 +17,9 @@ class Order extends Model
         'sub_total',
         'full_name',
         'grand_total',
-        'note'
+        'note',
+        'address',
+        'number_phone'
     ];
 
     public function items()
@@ -27,12 +29,8 @@ class Order extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class,'user_id','id');
+        return $this->belongsTo(User::class);
     }
 
-    // products:quantity, price 
-    // pivot:quantity, price
-    // 1/7: 1x2 - 100 => 200
-    // 2/7: id 1 - 200
-
+   
 }

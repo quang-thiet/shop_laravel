@@ -11,7 +11,7 @@ class EmailController extends Controller
 {
     public function  Send_mail(){
        
-        $user = 'chuwa cos gi';
+        $user =['ab' => 2 , 'ac' => 'bc'];
         $emailable = new order_comfirm($user,'abc','email');
         Mail::to('147thiet@gmail.com')->send($emailable);
         return true ;
