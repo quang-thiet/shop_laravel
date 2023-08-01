@@ -54,9 +54,15 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
+              <a href="{{route('order.index')}}" class="nav-link">
                 
                 <p>Oder</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('surcharge.index')}}" class="nav-link">
+                
+                <p>Surcharge</p>
               </a>
             </li>
           </ul>

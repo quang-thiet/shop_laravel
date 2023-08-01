@@ -6,7 +6,7 @@
             <div class="alert alert-success">{{ session()->get('success') }}</div>
         @endif
         <!--begin::table-->
-        <a href="{{ route('category.add') }}" class="btn btn-primary mr-2 mb-3">Thêm danh mục</a>
+        <a href="{{route('category.add')}}" class="btn btn-primary mr-2 mb-3">add category<i class="fa fa-plus-circle" aria-hidden="true"></i></a>
         <div class="card card-custom gutter-b">
             <div class="card-header flex-wrap border-0 pt-6 pb-0">
                 <div class="card-title">

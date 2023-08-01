@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\Order;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -11,21 +10,20 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class OrderEvent
+class update_cart_when_logged_in
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $data_items , $data_order;
+    public $data_carts ;  
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($data_order,$data_items)
+    public function __construct($data_carts)
     {
-       $this->data_order = $data_order;
-       $this->data_items = $data_items;
+        $this->data_carts = $data_carts;
     }
 
     /**

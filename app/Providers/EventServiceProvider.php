@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Events\OrderEvent;
+use App\Events\update_cart_when_logged_in;
 use App\Jobs\ProcessOrderEvent;
 use App\Listeners\OrderListener;
+use App\Listeners\ProccessCarts;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -36,8 +38,8 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         // Event::listen(OrderEvent::class,OrderListener::class);
-        Event::listen(OrderEvent::class,ProcessOrderEvent::class);
-
+        // Event::listen(OrderEvent::class,ProcessOrderEvent::class);
+        Event::listen(update_cart_when_logged_in::class,ProccessCarts::class);
     }
 
     /**

@@ -17,9 +17,11 @@ class CheckAdmin
      */
     public function handle(Request $request, Closure $next)
     {   
-        if(Auth::check() ){
+        if( Auth::id() == 0 || Auth::id() == 1 ){
+
             return $next($request);
         }else{
+            
             return abort(403);
         }
        

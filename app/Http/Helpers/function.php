@@ -71,7 +71,23 @@ if(!function_exists('checkboxCategories')){
     }
 }
 
+#### cart
 
+if(!function_exists('total_cart')){
+
+    function total_cart($carts , $surcharge = null){
+        $total_order = [];
+        foreach ($carts as $item) {
+
+            $total_order['sub_total'] += $item['total'];
+
+        }
+        foreach($surcharge as $value){
+            $total_order['grand_total'] = ($total_order['sub_total']+= $value->value) ;
+        }
+        return $total_order ; 
+    }
+}
 
 
 

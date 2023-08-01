@@ -12,7 +12,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use PDO;
+
 
 class CheckOutController extends Controller
 {
@@ -25,7 +25,7 @@ class CheckOutController extends Controller
 
             $product = Product::select('name','price','quantity','published','discount')->where('id',$cart['id'])->first();
 
-            $product->price = $product->price ?? $product->discount ;
+            $product->price = ( $product->price ?? $product->discount );
            
             $cart['price'] = ($cart['price'] != $product->price) ? $product->price : $cart['price'];
 

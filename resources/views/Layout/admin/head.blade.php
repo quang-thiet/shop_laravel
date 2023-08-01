@@ -7,6 +7,15 @@
   <title>AdminLTE 3 | Dashboard</title>
   
   <script src="https://code.jquery.com/jquery-3.7.0.slim.js" integrity="sha256-7GO+jepT9gJe9LB4XFf8snVOjX3iYNb0FHYr5LI1N5c=" crossorigin="anonymous"></script>
+  <link href="/template/client/assets/images/favicon.ico" type="img/x-icon" rel="shortcut icon">
+    <!-- All css files are included here. -->
+    <link rel="stylesheet" href="/template/client/assets/css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="/template/client/assets/css/vendor/iconfont.min.css">
+    <link rel="stylesheet" href="/template/client/assets/css/vendor/helper.css">
+    <link rel="stylesheet" href="/template/client/assets/css/plugins/plugins.css">
+    <link rel="stylesheet" href="/template/client/assets/css/style.css">
+    <!-- Modernizr JS -->
+    <script src="/template/client/assets/js/vendor/modernizr-2.8.3.min.js"></script>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">

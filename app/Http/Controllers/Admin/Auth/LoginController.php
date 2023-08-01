@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Auth;
 
+use App\Events\update_cart_when_logged_in;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequests;
 use Illuminate\Support\Facades\Auth;
@@ -9,10 +10,13 @@ use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
+
     public function index(){
         Session::put('previous_url',url()->previous());
         return view('Auth.login');
     }
+
+
     public function ProcessLogin(LoginRequests $request)
     {
         $remember= $request->input('remember')? true : false ;
@@ -25,8 +29,18 @@ class LoginController extends Controller
     
         if(Auth::attempt($data,$remember))
         {
+            // xử lý giỏ hàng
             $previous_url = session()->get('previous_url');
             session()->forget('previous_url');
+            if ($previous_url = route('list.cart.user')) {
+
+                $carts = session('carts');
+               if (!empty($carts)) {
+                $result = array_values($carts);
+                event(new update_cart_when_logged_in($result));
+               }
+              
+            }
             return redirect()->to($previous_url);
         }{
            return redirect()
@@ -45,4 +59,5 @@ class LoginController extends Controller
         return redirect()->back();
 
     }
+    
 }

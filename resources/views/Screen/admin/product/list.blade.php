@@ -27,7 +27,7 @@
      
       <!-- /.row -->
 <div class="row">
-<a href="{{route('product.add')}}" class="btn btn-success"> thêm </a>
+  <a href="{{route('product.add')}}" class="btn btn-primary mr-2 mb-3"><span style="margin-right: 12px">add product</span> <i class="fa fa-plus-circle" aria-hidden="true"></i></a>
     <table class="table">
         <header>
             <tr>

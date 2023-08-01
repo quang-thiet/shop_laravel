@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
                 'email'=>'147thiet@gmail.com',
                 'number_phone'=>'0966892091',
                 'gender'=>'1',
+                'role'=>0,
                 'avatar'=>'a',
                 'address'=>'ha tinh',
                 'password'=> Hash::make(1234567),

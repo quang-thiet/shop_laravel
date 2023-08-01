@@ -4,18 +4,38 @@
         @csrf
         <div class="row">
             <div class="col-md-8">
-                <div class="card card-custom">
+                <div class="card card-custom" style="height : 100%">
                     <div class="card header">
                         <h3 class="card-title">thông tin tài khoản </h3>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="">name
+                            <label for="">Display Name
                                 <span class="text-danger">*</span>
                             </label>
-                            <input type="text" class="form-control" value="{{$user->name}}" name="name"
+                            <input type="text" class="form-control" value="{{$user->display_name}}" name="display_name"
                                 placeholder="Nhật tên user">
-                            @error('name')
+                            @error('display_name')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">First Name
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" value="{{$user->first_name}}" name="frist_name"
+                                placeholder="Nhật tên user">
+                            @error('frist_name')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">Last Name
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" value="{{$user->last_name}}" name="name"
+                                placeholder="Nhật tên user">
+                            @error('last_name')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
@@ -28,12 +48,13 @@
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
-                           <div class="form-group">
-                            <label>number_phone
-                                <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" value="{{$user->email}}" name="number_phone"
-                                placeholder="Nhập số điện thoại">
-                            @error('number_phone')
+                        <div class="form-group">
+                            <label for="">Address
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" value="{{$user->address}}" name="address"
+                                placeholder="Nhật tên user">
+                            @error('address')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
@@ -45,7 +66,7 @@
                                     <span></span>boy</label>
                                 
                                 <label class="radio radio-rounded">
-                                    <input type="radio" value="0" name="role" @checked($user->role == 0 )
+                                    <input type="radio" value="2" name="role" @checked($user->role == 0 )
                                     <span></span>girl</label>
                             </div>
                         </div>
