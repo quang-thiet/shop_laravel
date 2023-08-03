@@ -1,222 +1,145 @@
 @extends('layout.admin.main')
 @section('content')
-    @if (session()->has('success'))
-        <div class="alert alert-success">{{ session()->get('success') }}</div>
-    @endif
-    @if (session()->has('error'))
-        <div class="alert alert-danger">{{ session()->get('error') }}</div>
-    @endif
-    <!-- Page Banner Section Start -->
-    <div class="page-banner-section section bg-image" data-bg="assets/images/bg/breadcrumb.png">
-        <div class="container">
-            <div class="row">
-                <div class="col">
 
-                    <div class="page-banner text-left">
-                        <h2>Checkout</h2>
-                        <ul class="page-breadcrumb">
-                            <li><a href="{{ route('home') }}">Home</a></li>
-                            <li><a href="{{ route('check.out') }}"></a>Checkout</li>
-                        </ul>
-                    </div>
+<div class="row">
+    <div class="col-12">
+      <div class="callout callout-info">
+        <h5><i class="fas fa-info"></i> Note:</h5>
+        {{$order->note}}
+      </div>
 
-                </div>
-            </div>
+
+      <!-- Main content -->
+      <div class="invoice p-3 mb-3">
+        <!-- title row -->
+        <div class="row">
+          <div class="col-12">
+            <h4>
+              <i class="fas fa-globe"></i> Ecommerce-funiture
+              <small class="float-right"> DATE : {{$order->created_at ->format("d-m-Y")}}</small>
+            </h4>
+          </div>
+          <!-- /.col -->
         </div>
-    </div>
-    <!-- Page Banner Section End -->
-    <!--Checkout section start-->
-    <div
-        class="checkout-section section pt-90 pt-lg-70 pt-md-60 pt-sm-50 pt-xs-40  pb-70 pb-lg-50 pb-md-40 pb-sm-30 pb-xs-20">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-
-                    <!-- Checkout Form Start-->
-                    <form action="{{ route('process.check.out') }}" class="checkout-form" method="POST">
-                        @csrf
-                        <div class="row row-40">
-
-                            <div class="col-lg-7">
-
-                                <!-- Billing Address -->
-                                <div id="billing-form" class="mb-10">
-                                    <h4 class="checkout-title">Billing Address</h4>
-                                    @if (session()->has('error'))
-                                        <div class="alert alert-danger text-center">{{ session()->get('error') }}</div>
-                                    @endif
-
-                                    <div class="row">
-
-                                        <div class="col-md-6 col-12 mb-20">
-                                            <label>First Name*</label>
-                                            <input type="text" name="first_name" value="{{ $user->first_name }}"
-                                                placeholder="First Name">
-                                        </div>
-                                        @error('first_name')
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @enderror
-                                        <div class="col-md-6 col-12 mb-20">
-                                            <label>Last Name*</label>
-                                            <input type="text" name="last_name" value="{{ $user->last_name }}"
-                                                placeholder="Last Name">
-                                            @error('last_name')
-                                                <p class="text-danger">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-
-                                        <div class="col-md-6 col-12 mb-20">
-                                            <label>Email Address*</label>
-                                            <input type="email" name="email" value="{{ $user->email }}"
-                                                placeholder="Email Address">
-                                            @error('email')
-                                                <p class="text-danger">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-
-                                        <div class="col-md-6 col-12 mb-20">
-                                            <label>Phone no*</label>
-                                            <input type="text" name="number_phone" value="{{ $user->number_phone }}"
-                                                placeholder="Phone number">
-                                            @error('number_phone')
-                                                <p class="text-danger">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-
-                                        <div class="col-12 mb-20">
-                                            <label>Address*</label>
-                                            <input type="text" name="address" value="{{ $user->address }}"
-                                                placeholder="Address">
-                                            @error('address')
-                                                <p class="text-danger">{{ $message }}</p>
-                                            @enderror
-                                            <input type="text" name="note" placeholder="Note">
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <!-- Shipping Address -->
-                                <div id="shipping-form">
-                                    <h4 class="checkout-title">Shipping Address</h4>
-
-                                    <div class="row">
-
-                                        <div class="col-md-6 col-12 mb-20">
-                                            <label>First Name*</label>
-                                            <input type="text" placeholder="First Name">
-                                        </div>
-
-                                        <div class="col-md-6 col-12 mb-20">
-                                            <label>Last Name*</label>
-                                            <input type="text" placeholder="Last Name">
-                                        </div>
-
-                                        <div class="col-md-6 col-12 mb-20">
-                                            <label>Email Address*</label>
-                                            <input type="email" placeholder="Email Address">
-                                        </div>
-
-                                        <div class="col-md-6 col-12 mb-20">
-                                            <label>Phone no*</label>
-                                            <input type="text" placeholder="Phone number">
-                                        </div>
-
-                                        <div class="col-12 mb-20">
-                                            <label>Company Name</label>
-                                            <input type="text" placeholder="Company Name">
-                                        </div>
-
-                                        <div class="col-12 mb-20">
-                                            <label>Address*</label>
-                                            <input type="text" placeholder="Address line 1">
-                                            <input type="text" placeholder="Address line 2">
-                                        </div>
-
-                                        <div class="col-md-6 col-12 mb-20">
-                                            <label>Country*</label>
-                                            <select class="nice-select">
-                                                <option>Bangladesh</option>
-                                                <option>China</option>
-                                                <option>country</option>
-                                                <option>India</option>
-                                                <option>Japan</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-6 col-12 mb-20">
-                                            <label>Town/City*</label>
-                                            <input type="text" placeholder="Town/City">
-                                        </div>
-
-                                        <div class="col-md-6 col-12 mb-20">
-                                            <label>State*</label>
-                                            <input type="text" placeholder="State">
-                                        </div>
-
-                                        <div class="col-md-6 col-12 mb-20">
-                                            <label>Zip Code*</label>
-                                            <input type="text" placeholder="Zip Code">
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-lg-5">
-                                <div class="row">
-
-                                    <!-- Cart Total -->
-                                    <div class="col-12 mb-60">
-
-                                        <h4 class="checkout-title">Cart Total</h4>
-
-                                        <div class="checkout-cart-total">
-                                            @php
-                                                $total = 0;
-                                            @endphp
-                                            @foreach ($carts as $item)
-                                                @php
-                                                    $total += $item['price'] * $item['quantity'];
-                                                @endphp
-
-                                                <h4>Product <span>Total</span></h4>
-
-                                                <ul>
-
-                                                    <li>{{ $item['name'] }} X {{ $item['quantity'] }}
-                                                        <span>${{ $item['price'] }}</span></li>
-                                            @endforeach
-                                            </ul>
-
-                                            <p>Sub Total <span>${{ $total }}</span></p>
-                                            <p>Shipping Fee <span>$2</span></p>
-
-                                            <h4>Grand Total <span>${{ $total + 2 }}</span></h4>
-
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <button class="place-order btn btn-lg btn-round" type="submit">Place order</button>
-
-                            </div>
-
-                        </div>
-                </div>
-
-            </div>
-            </form>
-
+        <!-- info row -->
+        <div class="row invoice-info">
+          <div class="col-sm-4 invoice-col">
+            From
+            <address>
+              <strong> {{config("common.information.Name")}} </strong><br>
+              {{config("common.information.Address")}}<br>
+              
+              Phone: {{config("common.information.Number_phone")}}<br>
+              Email: {{config("common.information.Email")}}
+            </address>
+          </div>
+          <!-- /.col -->
+          <div class="col-sm-4 invoice-col">
+            To
+            <address>
+              <strong>{{$order->full_name}}</strong><br>
+              {{$order->address}}<br>
+              Phone: {{$order->number_phone }}<br>
+              Email: {{$order->email}}
+            </address>
+          </div>
+          <!-- /.col -->
+          <div class="col-sm-4 invoice-col">
+            <br>
+            <b>Order ID:</b> {{$order->id}}<br>
+            <b>Payment:</b>{{config("common.payment.1")}}<br>
+            <b>Account:</b> {{$order->user_name}}
+          </div>
+          <!-- /.col -->
         </div>
-    </div>
-    </div>
-    </div>
-    <!--Checkout section end-->
-@endsection
+        <!-- /.row -->
+
+        <!-- Table row -->
+        <div class="row">
+          <div class="col-12 table-responsive">
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th>Qty</th>
+                <th>Product</th>
+                <th>price</th>
+                <th>Subtotal</th>
+              </tr>
+              </thead>
+              <tbody>
+             @foreach ($order->items as $item)
+             <tr>
+              <td>{{$item->quantity}}</td>
+              <td>{{$item->product_name}}</td>
+              <td>{{$item->price}}</td>
+              <td>{{$item->total}}</td>
+            </tr>
+             @endforeach
+              </tbody>
+            </table>
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+          <!-- accepted payments column -->
+          <div class="col-6">
+            <p class="lead">Payment Methods:</p>
+            <img src="/template/admin/dist/img/credit/visa.png" alt="Visa">
+            <img src="/template/admin/dist/img/credit/mastercard.png" alt="Mastercard">
+            <img src="/template/admin/dist/img/credit/american-express.png" alt="American Express">
+            <img src="/template/admin/dist/img/credit/paypal2.png" alt="Paypal">
+
+            <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+              Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
+              plugg
+              dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
+            </p>
+          </div>
+          <!-- /.col -->
+          <div class="col-6">
+            <p class="lead">Amount Due 2/22/2014</p>
+            @php
+              $total = total_cart($order->items ,$surcharge);
+            @endphp
+            <div class="table-responsive">
+              <table class="table">
+                <tbody><tr>
+                  <th style="width:50%">Subtotal:</th>
+                  <td>${{$order->sub_total}}</td>
+                </tr>
+                @foreach ($surcharge as $item)
+                <tr>
+                  <th>{{$item->name}}</th>
+                  <td>${{$item->value}}</td>
+                </tr>
+                @endforeach
+                <tr>
+                  <th>Total:</th>
+                  <td>${{$order->grand_total}}</td>
+                </tr>
+              </tbody></table>
+            </div>
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <!-- this row will not appear when printing -->
+        <div class="row no-print">
+          <div class="col-12">
+            <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
+            <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
+              Payment
+            </button>
+            <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+              <i class="fas fa-download"></i> Generate PDF
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- /.invoice -->
+    </div><!-- /.col -->
+  </div>
+  @endsection

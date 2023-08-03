@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -15,8 +17,8 @@ class OrderController extends Controller
      */
     public function index()
     {   
-        $orders = Order::select()->get();
-        
+    
+        $orders = Order::paginate(10);
         return view('Screen.admin.order.list',compact('orders'));
         
     }
@@ -65,7 +67,7 @@ class OrderController extends Controller
     {
         $order= Order::find($id);
         $order->load('items');
-        dd($order );
+       
         return View('Screen.admin.order.edit',compact('order'));
         
     }
@@ -78,8 +80,10 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   
+        
         $data = $request->all();
+        
         $order = Order::find($id);
         $order->update($data);
         return redirect()->back()->with('success','success');

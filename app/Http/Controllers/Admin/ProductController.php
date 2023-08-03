@@ -15,7 +15,9 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+    
     {
+   
         $products = Product::paginate(5);
        
         return view('Screen.admin.product.list',compact('products'));
@@ -101,7 +103,7 @@ class ProductController extends Controller
             $data['image']=$fileName;
         };
         $data['created_at']= now();
-        $data['update_at'] =now();
+        $data['update_at'] = now();
         Product::find($id)->update($data);
         return redirect()->route('product.list')->with('success','update thành công');
     }

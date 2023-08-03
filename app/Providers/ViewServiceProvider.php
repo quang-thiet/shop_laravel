@@ -27,14 +27,15 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer(['Screen.client.carts', 'Screen.client.home'], CartsComposer::class);
+        View::composer(['Layout.client.header'], CartsComposer::class);
 
         // view::composer('Screen.client.carts',function( $view){
         //     $view->with('abc','hhahah');
         // });
 
         View::composer(
-        [
+        [  
+            'Screen.admin.order.edit',
             'Email.order_confirm', 
             'Layout.client.header', 
             'Screen.client.carts', 

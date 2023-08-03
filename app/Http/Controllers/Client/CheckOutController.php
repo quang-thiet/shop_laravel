@@ -6,39 +6,30 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CheckoutRequest;
 use App\Jobs\ProcessOrderEvent;
+use App\Models\Carts;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Surcharge;
 use App\Models\User;
+use App\Services\CartService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
+use Termwind\Components\Dd;
 
 class CheckOutController extends Controller
 {
     public function index()
     {
-        
-        $cart = session()->get('carts')??[];
-        
-        $carts = array_map(function($cart){
-
-            $product = Product::select('name','price','quantity','published','discount')->where('id',$cart['id'])->first();
-
-            $product->price = ( $product->price ?? $product->discount );
-           
-            $cart['price'] = ($cart['price'] != $product->price) ? $product->price : $cart['price'];
-
-            if ( $product->published != 1 || $product->quantity == 0 ){
-                unset($cart);
-                return null;
-            }
-            return $cart ; 
-
-        },$cart);
-        
+        $result = new CartService ;
+        $carts =  $result->get_cart();
+        if(!empty($cart)){
+            return redirect()->back()->with('error','bạn không thể checkout khi giỏ hàng trống !!');
+        }
+        $surcharge = Surcharge::get();
         $user = User::find(Auth::id());
-        return view('Screen.client.checkout', compact('carts','user'));
+        $total = total_cart($carts, $surcharge);
+        return view('Screen.client.checkout', compact('carts','user','total'));
 
     }
 
@@ -48,52 +39,48 @@ class CheckOutController extends Controller
         
 
         DB::beginTransaction();
-
-        $sub_total = 0 ;
-
-        $data = $request->only('email','number_phone','address','note');
-
-        $data['full_name']= $request->input('first_name').' '.$request->input('last_name');
-
-        $data['user_id'] = Auth::user()->id ;
-
         
-       
+        $data = $request->only('email','number_phone','address','note');
+        $data['full_name']= $request->input('first_name').' '.$request->input('last_name');
+        $data['user_id'] = Auth::user()->id ;
         try {
 
-           
-            $carts = session()->get('carts');
-            $new_array = collect($carts)->values();
-            $new_array->toArray();
-          
+            $result = new CartService;
+            $carts = $result->get_cart();
             foreach($carts as $value){
-
-                $sub_total += $value['total']; 
-                $products =  Product::findOrfail($value['id'])->decrement('quantity',$value['quantity']);
-
+                $products =  Product::findOrfail($value['product_id'])->decrement('quantity',$value['quantity']);
             }
-            
-            $grand_total = $sub_total + 2;
-            $data['sub_total'] = $sub_total ;
-            $data['grand_total'] = $grand_total;
+            $surcharge = Surcharge::get();
+            $total = total_cart($carts, $surcharge);
+            $data['sub_total'] = $total['sub_total'] ;
+            $data['grand_total'] = $total['grand_total'];
             $order = Order::query()->create($data);
-          
             $data_item = [];
-            foreach($new_array as $item){
-
-                $item['product_id'] =$item['id'];
+            foreach($carts as &$item){
                 $item['order_id'] = $order->id ;
                 $item['product_name']=$item['name'];
+                //$item->toArray;
                 $data_item[] = $item;
-                
             }
-            
-            $order->items()->createMany($data_item);
+
+            $new_data = array_map(function ($item){
+                $item->toArray();
+                $result['id'] = $item ->id;
+                $result['product_id'] = $item ->product_id;
+                $result['order_id'] = $item ->order_id;
+                $result['product_name'] = $item ->product_name;
+                $result['quantity'] = $item ->quantity;
+                $result['price'] = $item ->price;
+                $result['total'] = $item ->total;               
+                return $result ;
+            },$data_item);
+           
+            $order->items()->createMany($new_data);
+            $delete_carts = Carts::where('user_id',Auth::id())->delete();
             $data_order = Order::find($order->id);
             $data_orders = $data_order->load('items');
             $to_email =  $data['email'];
-
-            //  dd();
+         
             dispatch(new  ProcessOrderEvent( $to_email , $data_orders));
             session()->forget('carts');
             DB::commit();
@@ -114,6 +101,7 @@ class CheckOutController extends Controller
         }
 
     }
+
 
     public function track()
     {

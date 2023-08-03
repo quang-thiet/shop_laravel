@@ -19,5 +19,17 @@ return[
     4   => 'HOÀN THÀNH',
 ],
 
+'information' =>[
+    'Name'         =>'Ecommerce-funiture',
+    'Email'        => '147thiet@gmail.com',
+    'Address'      =>  'MỸ Đình - Nam Từ Liêm - Hà Nội',
+    'Number_phone' =>"0868119649",
+],
+
+'payment' =>[
+
+    1 => 'Thanh toán khi nhận hàng',
+],
+
 
 ];

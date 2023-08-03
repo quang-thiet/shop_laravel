@@ -155,20 +155,14 @@
                     <div class="single-grid-product mb-40">
                        <div class="product-image">
                            <div class="product-label">
-                               <span>-20%</span>
+                               <span>-{{calculate_percentage_discount($item->price,$item->discount)}}%</span>
                            </div>
                            <a href="{{route('single.product',['slug'=>$item->slug ,'id' =>$item->id])}}">
                                <img src="{{asset('image/products/'.$item->image )}}" class="img-fluid" alt="">
                                <img src="{{asset('image/products/'.$item->image )}}" class="img-fluid" alt="">
                            </a>
 
-                           <div class="product-action">
-                               <ul>
-                                   <li><a href="cart.html"><i class="fa fa-cart-plus"></i></a></li>
-                                   <li><a href="#quick-view-modal-container" data-toggle="modal" title="Quick View"><i class="fa fa-eye"></i></a></li>
-                                   <li><a href="wishlit.html"><i class="fa fa-heart-o"></i></a></li>
-                               </ul>
-                           </div>
+                           
                        </div>
                        <div class="product-content">
                            <h3 class="title"> <a href="{{route('single.product',['slug'=>$item->slug ,'id' =>$item->id])}}">{{$item->name}}</a></h3>

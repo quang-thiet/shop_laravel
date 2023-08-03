@@ -20,7 +20,6 @@
     <link rel="stylesheet" href="/template/client/assets/css/style.css">
     <!-- Modernizr JS -->
     <script src="/template/client/assets/js/vendor/modernizr-2.8.3.min.js"></script>
-</head>
 
 <body>
 
@@ -45,8 +44,8 @@
                                     <ul>
                                         <li><a href="index.html">Home</a>
                                             <ul class="sub-menu">
-                                                <li><a href="index.html">Home One</a></li>
-                                                <li><a href="index-2.html">Home Two</a></li>
+                                                <li><a href="{{route('home')}}">Home</a></li>
+                                
                                             </ul>
                                         </li>
                                         <li><a href="shop.html">Shop</a>
@@ -59,7 +58,7 @@
                                                         <li><a href="checkout.html">Checkout</a></li>
                                                         <li><a href="wishlist.html">Wishlist</a></li>
                                                         <li><a href="my-account.html">My Account</a></li>
-                                                        <li><a href="login-register.html">Login Register</a></li>
+                                                        <li><a href="login-register.html">Login</a></li>
                                                         <li><a href="faq.html">Frequently Questions</a></li>
                                                         <li><a href="404.html">Error 404</a></li>
                                                     </ul>
@@ -152,7 +151,7 @@
                                                 <!--Account Currency Start-->
                                                 <li><a href="my-account.html">My account</a>
                                                     <ul>
-                                                        <li><a href="{{'login'}}">Login</a></li>
+                                                     
                                                         <li><a href="checkout.html">Checkout</a></li>
                                                         <li><a href="{{route('profile')}}">My account</a></li>
                                                         <li><a href="{{route('list.cart.user')}}">Cart</a></li>
@@ -163,22 +162,17 @@
                                             </ul>
                                             <!--Crunccy dropdown-->
                                         </li>
-                                        @php
-                                        $carts = session()->get('carts');
-                                        $total = 0 ; 
-                                        @endphp
-                                        <li class="mini-cart"><a href="#"><i class="flaticon-shopping-cart"></i></a>
                                         @if (!empty($carts))
+                                        <li class="mini-cart"><a href="#"><i class="flaticon-shopping-cart"></i></a>
+                                       
                                                 <!--Mini Cart Dropdown Start-->
                                                 <div class="header-cart" >
                                               
                                                     <ul class="cart-items" style="overflow: auto ; height :212px ;width = 190 px" >
                                                         
-                                                    @if (!empty($carts))
+                                                   
                                                     @foreach ($carts as $item)
-                                                    @php
-                                                    $total= $item['price'] * $item['quantity'] ;
-                                                    @endphp
+                                                   
                                                     <li class="single-cart-item">
                                                     <div class="cart-img">
                                                         <a href="{{route('single.product',['slug' =>$item['name'],'id'=>$item['id']])}}"><img src="{{asset('/image/products/'.$item['image'])}}" alt=""></a>
@@ -192,27 +186,34 @@
                                                         <a href="{{route('delete.cart',['id'=>$item['id']])}}" title="Remove" href=""><i class="fa fa-trash"></i></a>
                                                     </div>
                                                 </li> 
-                                                @endforeach~
-                                                
-                                                    @else
-                                                    <samp class="text-danger">giỏ hàng trống </samp> 
-                                                    @endif
+                                                    @endforeach
+                                                    @php
+                                                        $total = total_cart($carts ,$surcharge);
+                                                    @endphp
+                                                   
                                                     </ul>
                                                     <div class="cart-total">
-                                                        <h5>Subtotal :<span class="float-right">$39.79</span></h5>
-                                                        <h5>Shipping Fee:<span class="float-right">$7</span></h5>
-                                                        <h5>VAT (20%) : <span class="float-right"></span></h5>
-                                                        <h5>Total : <span class="float-right">{{$total}}</span></h5>
+                                                        <h5>Subtotal :<span class="float-right">${{$total['sub_total']}}
+                                                        @foreach ($surcharge as $item)
+                                                    </span></h5>
+                                                    <h5>{{$item->name}}:<span class="float-right">${{$item->value}}</span></h5>
+                                                        @endforeach
+                                                       
+                                                        <h5>Total : <span class="float-right">{{$total['grand_total']}}</span></h5>
                                                     </div>
                                                     <div class="cart-btn">
                                                         <a href="{{route('list.cart.user')}}">View Cart</a>
+                                                        @if (Auth::check())
                                                         <a href="{{route('check.out')}}">checkout</a>
+                                                        @endif
+                                                        
                                                     </div>
                                                 </div>
                                                 
                                                 <!--Mini Cart Dropdown End-->
-                                        @endif
+                                        
                                         </li>
+                                        @endif
                                 </ul>
                             </div>
                             <!--Header Search And Mini Cart Area End-->
@@ -223,54 +224,6 @@
         </header>
         <!--Header section end-->
 
-        <!--Header Mobile section start-->
-        <header class="header-mobile d-block d-lg-none">
-            <div class="header-bottom menu-right">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="header-mobile-navigation d-block d-lg-none">
-                                <div class="row align-items-center">
-                                    <div class="col-6 col-md-6">
-                                        <div class="header-logo">
-                                            <a href="index.html">
-                                                <img src="/template/client/assets/images/logo.png" class="img-fluid" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-6">
-                                        <div class="mobile-navigation text-right">
-                                            <div class="header-icon-wrapper">
-                                                <ul class="icon-list justify-content-end">
-                                                    <li>
-                                                        <div class="header-cart-icon">
-                                                            <a href="{{route('list.cart.user')}}"><i class="flaticon-shopping-cart"></i></a>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0)" class="mobile-menu-icon" id="mobile-menu-trigger"><i class="fa fa-bars"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--Mobile Menu start-->
-                    <div class="row">
-                        <div class="col-12 d-flex d-lg-none">
-                            <div class="mobile-menu"></div>
-                        </div>
-                    </div>
-                    <!--Mobile Menu end-->
-
-                </div>
-            </div>a
-        </header>
-        <!--Header Mobile section end-->
 
         <!-- Offcanvas Menu Start -->
         <div class="offcanvas-mobile-menu d-block d-lg-none" id="offcanvas-mobile-menu">

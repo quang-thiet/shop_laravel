@@ -22,31 +22,37 @@
         </div>
       </div>
       <!-- /.card-header -->
-      <div class="card-body table-responsive p-0" style="height: 300px; aligin: cent ;">
+      <div class="card-body table-responsive p-0" style="height: 600px; aligin: cent ;">
         <a href="{{route('order.create')}}" class="btn btn-primary mr-2 mb-3"><span style="margin-right: 12px">add order</span><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
         <table class="table table-head-fixed text-nowrap">
           <thead>
             <tr>
               <th>ID</th>
-              <th>Name</th>
-              <th>Value</th>
+              <th>Display Name</th>
+              <th>Status</th>
+              <th>Create</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
+            @foreach ($orders as $item)
             <tr>
-              <td>183</td>
-              <td>John Doe</td>
-              <td>11-7-2014</td>
+           
+              <td>{{$item->id}}</td>
+              <td>{{$item->user_name}}</td> 
+              <td>{{config("common.order_status.{$item->status}")}}</td> 
+              <td>{{$item->created_at ->format("d-m-Y \l\ú\c H:i")}}</td>   
               <td class="datatable-cell" style="width: 15%">
-                <a href=""
+                <a href="{{route('order.edit',$item->id)}}"
                     class="btn btn-icon btn-success btn-sm mr-2"><i
                         class="fas fa-edit"></i></a>
-                <a href=""
+                <a href="{{route('order.destroy',$item->id)}}"
                     class="btn btn-icon btn-danger btn-sm mr-2"><i
                         class="far fa-trash-alt"></i></a>
+            
               </td>
             </tr>
+            @endforeach
           </tbody>
         </table>
       </div>

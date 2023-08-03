@@ -75,20 +75,32 @@ if(!function_exists('checkboxCategories')){
 
 if(!function_exists('total_cart')){
 
-    function total_cart($carts , $surcharge = null){
-        $total_order = [];
+    function total_cart($carts , $surcharge ){
+        $total_order = ['sub_total'=> 0 ,'grand_total'=>0 ];
         foreach ($carts as $item) {
 
             $total_order['sub_total'] += $item['total'];
 
         }
-        foreach($surcharge as $value){
-            $total_order['grand_total'] = ($total_order['sub_total']+= $value->value) ;
+        foreach($surcharge as $item){
+
+            $total_order['grand_total'] += $item->value ;
         }
+      
+        $total_order['grand_total'] +=  $total_order['sub_total'];
+ 
         return $total_order ; 
     }
 }
 
+//tính phần trăm được giảm
+if (!function_exists('calculate_percentage_discount')) {
+    function calculate_percentage_discount($price,$discount){
+
+        $calculate_percentage  = ($price/100 * $discount);
+        return $calculate_percentage ;
+    }
+}
 
 
 

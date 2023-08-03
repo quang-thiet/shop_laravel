@@ -59,7 +59,7 @@
                             <label>giá giảm
                                 <span class="text-danger">*</span></label>
                             <input name="discount" type="number" rows="4" value="{{$product->discount}}" class="form-control"
-                                placeholder="Nhập giá giảm" ></input>
+                                placeholder="Nhập giá giảm"  ></input>
                             @error('discount')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror

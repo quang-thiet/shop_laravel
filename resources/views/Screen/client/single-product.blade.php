@@ -67,8 +67,8 @@
                                         <a class="review-link" href="#">(1 customer review)</a>
                                     </div>
                                     <div class="single-product-price">
-                                        <span class="price new-price">${{$product->price}}</span>
-                                        <span class="regular-price">${{$product->discount}}</span>
+                                        <span class="price new-price">${{$product->discount}}</span>
+                                        <span class="regular-price">${{$product->price}}</span>
                                         <div class="product-quantity">
                                             <span><h3>số lượng :{{$product->quantity}}</h3></span>
                                         </div>

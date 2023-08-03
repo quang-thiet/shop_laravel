@@ -41,6 +41,7 @@ class ProccessCarts
       }, $event->data_carts);
 
       $carts =  Carts::insert($data_carts);
+      session()->forget('carts');
       DB::commit();
 
     } catch (\Exception $e) {

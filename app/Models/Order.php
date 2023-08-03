@@ -19,7 +19,11 @@ class Order extends Model
         'grand_total',
         'note',
         'address',
-        'number_phone'
+        'number_phone',
+        'name_user',
+    ];
+    protected $appends = [
+        'user_name',
     ];
 
     public function items()
@@ -29,7 +33,15 @@ class Order extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    public function getUserNameAttribute()
+    {
+      
+       $result= User::select('display_name')->where('id','=',$this->user_id)->get();
+       $result = $result[0]->display_name;
+        return $result;
     }
 
    

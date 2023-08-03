@@ -184,15 +184,8 @@
                                         <h4 class="checkout-title">Cart Total</h4>
 
                                         <div class="checkout-cart-total">
-                                            @php
-                                              $total = 0;  
-                                            @endphp
+                                            
                                             @foreach ($carts as $item)
-
-                                            @php
-                                            $total += $item['price'] * $item['quantity'] ;
-                                            @endphp
-
                                             <h4>Product <span>Total</span></h4>
 
                                             <ul>
@@ -202,10 +195,11 @@
                                                 @endforeach
                                             </ul>
 
-                                            <p>Sub Total <span>${{$total}}</span></p>
-                                            <p>Shipping Fee <span>$2</span></p>
-
-                                            <h4>Grand Total <span>${{$total + 2 }}</span></h4>
+                                            <p>Sub Total <span>${{$total['sub_total']}}</span></p>
+                                            @foreach ($surcharge as $item)
+                                            <p>{{$item->name}} <span>${{$item->value}}</span></p>  
+                                            @endforeach
+                                            <h4>Grand Total <span>${{$total['grand_total'] }}</span></h4>
                                            
 
                                         </div>

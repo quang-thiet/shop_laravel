@@ -27,17 +27,12 @@
                                     <th class="pro-remove">Remove</th>
                                 </tr>
                             </thead>
-                            @php
-                                $carts = session()->get('carts');
-                                $total_all = 0;
-                            @endphp
+
                             <tbody>
                                 @if (!empty($carts))
                                     {
                                     @foreach ($carts as $item)
-                                    @php
-                                        $total_all += $item['total'];
-                                    @endphp
+                                  
                                         <tr>
                                             <td class="pro-thumbnail"><a href="#"><img
                                                         src="{{ asset('/image/products/' . $item['image']) }}"
@@ -86,14 +81,16 @@
                                 <div class="cart-summary">
                                     <div class="cart-summary-wrap">
                                         <h4>Cart Summary</h4>
-                                        <p>Sub Total <span>${{$total_all}}</span></p>
-                                        <p>Shipping Cost <span>$2</span></p>
-                                        <h2>Grand Total <span>${{$total_all +2 }}</span></h2>
+                                        <p>Sub Total <span>${{$total['sub_total']}}</span></p>
+                                        @foreach ($surcharge as $item)
+                                        <p>{{$item->name}} <span>${{$item->value}}</span></p>
+                                        @endforeach
+                                        <h2>Grand Total <span>${{$total['grand_total'] }}</span></h2>
                                     </div>
                                     <div class="cart-summary-button">
                                         <button class="btn check_out"  
                                         data-url="{{route('check.out')}}">Checkout</button>
-                                        <button class="btn update_carts" data-url="{{route('update.cart')}}"
+                                        <button class="btn update_carts" data-url="{{route('list.cart.user')}}"
                                             id="34">Update
                                             Cart</button>
                                     </div>
@@ -118,7 +115,7 @@
         function update(event) {
 
             event.preventDefault();
-            let urlUpdate_cart = $('.update_cart').data('url');
+            let urlUpdate_cart = $('.btn update_cart').data('url');
             let id = $(this).data('id');
             let quantity = $(this).val();
 
@@ -149,6 +146,7 @@
             event.preventDefault();
             let url_update = $(this).data('url');
             let type_update = 200 ;
+            alert("update carts !!")
             $.ajax({
                 type: "GET",
                 url: url_update,
@@ -169,7 +167,7 @@
         $(document).ready(function() {
             $(function() {
 
-                $("#34").on('click', update_all);
+                $(".update_carts").on('click', update_all);
 
             })
 
