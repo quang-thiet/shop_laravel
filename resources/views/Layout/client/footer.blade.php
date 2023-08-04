@@ -234,6 +234,7 @@
     <script src="/template/client/assets/js/vendor/bootstrap.min.js"></script>
     <script src="/template/client/assets/js/plugins/plugins.js"></script>
     <script src="/template/client/assets/js/main.js"></script>
+    @livewireScripts
 
 </body>
 

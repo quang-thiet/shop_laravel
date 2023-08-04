@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Auth;
 use App\Events\update_cart_when_logged_in;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequests;
+use App\Services\CartService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -20,7 +21,8 @@ class LoginController extends Controller
     public function ProcessLogin(LoginRequests $request)
     {
         $remember= $request->input('remember')? true : false ;
-    
+        $data = new CartService;
+        $carts =  $data->get_cart();
         $data =[
             'email'=>$request->email,
             'password'=>$request->password
@@ -33,11 +35,10 @@ class LoginController extends Controller
             $previous_url = session()->get('previous_url');
             session()->forget('previous_url');
             if ($previous_url = route('list.cart.user')) {
-
-                $carts = session('carts');
+                $carts = array_values($carts);
+                
                if (!empty($carts)) {
-                $result = array_values($carts);
-                event(new update_cart_when_logged_in($result));
+                event(new update_cart_when_logged_in($carts));
                }
               
             }

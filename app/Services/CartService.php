@@ -43,34 +43,33 @@ class CartService
             } else {
 
                 $data_cart = Cookie::get('carts') ?? "[]";
-                $data_cart = json_decode($data_cart, true);
-                    if (!empty($data_cart)) {
-                    $data = array_values($data_cart);
-                    }
-                    if (!empty($data)) {
-                    $carts = array_map(function ($cart) {
-                        $product = Product::find($cart['id']);
-                        if ($product->discount === null) {
-                            unset($product->discount);
-                        } else {
+                $carts = json_decode($data_cart, true);
+
+                    $carts = array_map(function ($cart){
+                        $id = $cart['id'];
+                        $product = Product::find($id);
+                         
+                        if ($product->discount != null) {
                             $product->price = $product->discount;
-                            unset($product->discount);
                         }
-                        $cart['price'] = ($cart['price'] !== $product->price) ? $product->price : $cart['price'];
 
                         if ($product->published != 1 || $product->quantity == 0) {
                             unset($cart);
                         }
+                        $cart['price'] = ($cart['price'] !== $product->price) ? $product->price : $cart['price'];
+        
+                        
                         return $cart;
-                    }, $data);
-                }
+                    }, $carts);
+        
+                
             }
 
             $carts ?? $carts = [];
 
             return $carts;
         } catch (\Exception $e) {
-
+            dd($e);
             Log::error($e->getLine() . '/nLIne: ' . $e->getMessage());
 
             return redirect()->back()->with('error', 'đã xảy ra lỗi vui lòng thử lại!!!');

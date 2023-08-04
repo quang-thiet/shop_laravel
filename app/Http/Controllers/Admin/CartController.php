@@ -23,7 +23,7 @@ class CartController extends Controller
     $surcharge = Surcharge::get();
     $carts = $data->get_cart();
     $total = total_cart($carts, $surcharge);
-
+   
     return view('Screen.client.carts', compact('carts', 'total'));
   }
 
@@ -89,13 +89,13 @@ class CartController extends Controller
           lòng kiểm tra lại giỏ hàng  !!');
       }
 
-      //set data để thêm vào sesstion
+      //set data để thêm vào 
       $carts[$product_id]['quantity'] = $data;
       $carts[$product_id]['price'] = $product->price;
       $carts[$product_id]['total'] = $carts[$product_id]['quantity'] * $carts[$product_id]['price'];
     } else {
 
-      //set data để thêm vào sesstion 
+      //set data để thêm 
       $carts[$product_id] = [
         'id'       => $product_id,
         'name'     => $product->name,
@@ -116,15 +116,6 @@ class CartController extends Controller
   {
 
     $data = $request->all();
-
-    //render lại để cập nhật 
-    if (isset($data['abc'])) {
-      $carts = session()->get('carts');
-      $cart_component = view('Screen.client.carts', compact('carts'))->render();
-      return response()->json([
-        'cart_component' => $cart_component
-      ], 200);
-    }
 
     //lấy thông tin sản phẩm 
     $product = DB::table('products')
@@ -148,6 +139,7 @@ class CartController extends Controller
 
       //set lại giá trị quantity và total
       $new_data = [
+
         'quantity' => $data['quantity'],
         'total'    => $data['quantity'] * $product->price,
       ];
@@ -159,7 +151,7 @@ class CartController extends Controller
 
       if (!empty($request->id) && !empty($request->quantity)) {
 
-        $carts = session()->get('carts');
+        ;
         //set lại giá trị quantity và total
         $carts[$data['id']]['quantity'] = $data['quantity'];
         $carts[$data['id']]['total'] = $carts[$data['id']]['quantity'] * $carts[$data['id']]['price'];

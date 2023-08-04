@@ -467,11 +467,12 @@ $('#sticky-sidebar').theiaStickySidebar({
 /*----- 
 	Quantity
 --------------------------------*/
-$('.pro-qty').prepend('<button class="dec qtybtn">-</button>');
-$('.pro-qty').append('<button class="inc qtybtn">+</button>');
+// $('.pro-qty').prepend('<button class="dec qtybtn">-</button>');
+// $('.pro-qty').append('<button class="inc qtybtn">+</button>');
 $('.qtybtn').on('click', function() {
 	var $button = $(this);
-	var oldValue = $button.parent().find('input').val();
+    var $input = $button.parent().find('input');
+	var oldValue = $input.val();
 	if ($button.hasClass('inc')) {
 	  var newVal = parseFloat(oldValue) + 1;
 	} else {
@@ -482,7 +483,9 @@ $('.qtybtn').on('click', function() {
 		newVal = 0;
 	  }
 	  }
-	$button.parent().find('input').val(newVal);
+
+	$input.val(newVal);
+    $input.trigger('change');
 });
 /* -------------------------
     Venobox Active

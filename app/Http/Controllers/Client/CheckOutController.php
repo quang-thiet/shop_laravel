@@ -13,9 +13,10 @@ use App\Models\Surcharge;
 use App\Models\User;
 use App\Services\CartService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Termwind\Components\Dd;
+
 
 class CheckOutController extends Controller
 {
@@ -82,7 +83,7 @@ class CheckOutController extends Controller
             $to_email =  $data['email'];
          
             dispatch(new  ProcessOrderEvent( $to_email , $data_orders));
-            session()->forget('carts');
+            Cookie::queue(Cookie::forget('carts'));
             DB::commit();
 
             return view('Screen.client.checkout-success')

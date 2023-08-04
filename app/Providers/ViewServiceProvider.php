@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Surcharge;
+use App\Services\CartService;
 use App\Views\Composers\CartsComposer;
 use App\Views\Composers\SurchargeComposer;
 use Illuminate\Support\Facades\View;
@@ -29,9 +31,13 @@ class ViewServiceProvider extends ServiceProvider
     {
         View::composer(['Layout.client.header'], CartsComposer::class);
 
-        // view::composer('Screen.client.carts',function( $view){
-        //     $view->with('abc','hhahah');
-        // });
+        view::composer('livewire.update-carts',function( $view){
+            $data = new CartService;
+            $surcharge = Surcharge::get();
+            $carts = $data->get_cart();
+            $total = total_cart($carts, $surcharge);
+            $view->with('total',$total);
+        });
 
         View::composer(
         [  

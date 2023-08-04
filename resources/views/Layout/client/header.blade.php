@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/template/client/assets/css/style.css">
     <!-- Modernizr JS -->
     <script src="/template/client/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    @livewireStyles
 
 <body>
 
@@ -224,7 +225,7 @@
         </header>
         <!--Header section end-->
 
-
+       {{-- {{dd($carts)}} --}}
         <!-- Offcanvas Menu Start -->
         <div class="offcanvas-mobile-menu d-block d-lg-none" id="offcanvas-mobile-menu">
             <a href="javascript:void(0)" class="offcanvas-menu-close" id="offcanvas-menu-close-trigger">
