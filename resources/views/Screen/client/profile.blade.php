@@ -103,7 +103,7 @@
                                                             <td>{{ $item->created_at->format('d-m-Y \l\ú\c H:i') }}</td>
                                                             <td>{{ config("common.order_status.{$item->status}") }}</td>
                                                             <td>${{ $item->grand_total }}</td>
-                                                            <td><a href="cart.html" class="btn">View</a></td>
+                                                            <td><a href="{{route('order.show',['id'=>$item->id])}}" class="btn">View</a></td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

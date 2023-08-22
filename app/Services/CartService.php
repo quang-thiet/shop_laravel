@@ -57,8 +57,8 @@ class CartService
                             unset($cart);
                         }
                         $cart['price'] = ($cart['price'] !== $product->price) ? $product->price : $cart['price'];
-        
-                        
+                        $cart['user_id'] = null ; 
+                        $cart['product_id'] = $cart['id']; 
                         return $cart;
                     }, $carts);
         

@@ -13,10 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('surcharge_order', function (Blueprint $table) {
-            $table ->id();
-            $table->Integer('order_id');
-            $table->Integer('surcharge_id');
+        Schema::table('carts', function (Blueprint $table) {
+            $table->timestamps();
         });
     }
 
@@ -27,6 +25,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carts');
+        Schema::table('carts', function (Blueprint $table) {
+            $table->dropColumn('created_at');
+            $table->dropColumn('updated_at');
+        });
     }
 };

@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('surcharge_order', function (Blueprint $table) {
-            $table ->id();
-            $table->Integer('order_id');
-            $table->Integer('surcharge_id');
+        Schema::table('surcharge_order', function (Blueprint $table) {
+            $table->string('name');
+            $table->integer('value');
         });
     }
 
@@ -27,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carts');
+        Schema::table('surcharge_order', function (Blueprint $table) {
+            //
+        });
     }
 };

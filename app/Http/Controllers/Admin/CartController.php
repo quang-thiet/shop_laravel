@@ -30,7 +30,7 @@ class CartController extends Controller
 
   public function store(Request $request, $product_id)
   {
-
+   
     $data_request = $request->all();
 
     $product = DB::table('products')
@@ -42,7 +42,10 @@ class CartController extends Controller
       $product->price = $product->discount;
     }
     if (Auth::check()) {
-      $cart = Carts::where('product_id', $product_id)->get();
+     
+      $user_id = Auth::id();
+      $cart = Carts::where('product_id', $product_id)->first();
+      
       //Nếu đã tồn tại thì chỉ cập nhật lại số lượng 
       if (!empty($cart)) {
         $cart->quantity  +=  $data_request['quantity'];
@@ -61,17 +64,18 @@ class CartController extends Controller
         $data_cart = [
 
           'name'      => $product->name,
-          'user_id'   => Auth::id(),
-          'product_id' => $product->id,
+          'user_id'   => $user_id,
+          'product_id' => $product_id,
           'price'     => $product->price,
           'image'     => $product->image,
           'total'     => $data_cart['quantity'] * $product->price,
-
+          'quantity'  =>$request->quantity
         ];
-
+        
         $cart = Carts::insert($data_cart);
         return redirect()->back()->with('success', 'Thêm thành công sản phẩm vào giỏ hàng !!');
       }
+
     }
     // chưa login 
 
@@ -165,18 +169,17 @@ class CartController extends Controller
   }
 
 
-  public function delete_session($product_id)
+  public function delete($id)
   {
-
+    
     if (Auth::check()) {
-
-      $cart = Carts::where('product_id', $product_id)->delete();
+      $cart = Carts::where('product_id', $id)->delete();
       return redirect()->back()->with('success', 'xoa thành công');
     } else {
-
+     
       $carts = Cookie::get('carts') ?? "[]";
       $carts = json_decode($carts, true);
-      unset($carts[$product_id]);
+      unset($carts[$id]);
       Cookie::queue('carts', json_encode($carts), 3600 * 336); // 2 week
       return redirect()->back()->with('success', 'xoa thành công');
     }

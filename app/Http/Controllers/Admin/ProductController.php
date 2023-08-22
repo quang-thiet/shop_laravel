@@ -31,7 +31,7 @@ class ProductController extends Controller
     public function create()
     {   
         $categories = Category::get();
-        View::share('category',$categories);
+   
         return view('Screen.admin.product.add',compact('categories'));
     }
 

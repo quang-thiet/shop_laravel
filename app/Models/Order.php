@@ -13,6 +13,7 @@ class Order extends Model
         'status' => 1,
     ];
     protected $fillable = [
+        'id',
         'user_id',
         'sub_total',
         'full_name',
@@ -34,6 +35,11 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    public function surcharge(){
+        
+        return $this->belongsToMany(Surcharge::class,'surcharge_order','order_id','surcharge_id','id','id')->withPivot('name','value');
     }
 
     public function getUserNameAttribute()

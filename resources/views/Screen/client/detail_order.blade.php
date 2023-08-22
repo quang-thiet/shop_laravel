@@ -194,9 +194,8 @@
                 </tfoot>
             </table>
         </div>
-        <div class="footer">Xin cảm ơn !
-            <a href=""><button class="btn btn-subscribe-order">THEO DÕI ĐƠN HÀNG</button></a>
-        </div>
+        <div class="footer">Xin cảm ơn !</div>
+        <div><i class="fa-solid fa-left-long"></i></div>
     </div>
 </body>
 </html>

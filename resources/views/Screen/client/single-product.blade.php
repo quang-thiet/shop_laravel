@@ -26,7 +26,7 @@
     </div>
 </div>
 <!-- Page Banner Section End -->
-@yield('product')
+
        <!-- Single Product Section Start -->
        <div class="single-product-section section pt-60 pt-lg-40 pt-md-30 pt-sm-20 pt-xs-25 pb-100 pb-lg-80 pb-md-70 pb-sm-30 pb-xs-20">
         <div class="container">
@@ -217,7 +217,6 @@
     </div>
 </div>
 <!--Product Description Review Section Start-->
-
 <!--Product section start-->
 <div class="product-section section pt-100 pt-lg-80 pt-md-70 pt-sm-60 pt-xs-50 pb-60 pb-lg-40 pb-md-30 pb-sm-20 pb-xs-15">
     <div class="container">
@@ -584,16 +583,9 @@
     </div>
 </div>
 <script>
-
-
-
-
-$(documnet).ready(function(){
-
- $(.)
-
-})
-
+    $(document).ready(function(){
+        
+    })
 </script>
 @endsection
 

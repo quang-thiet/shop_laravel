@@ -34,10 +34,12 @@ class LoginController extends Controller
             // xử lý giỏ hàng
             $previous_url = session()->get('previous_url');
             session()->forget('previous_url');
-            if ($previous_url = route('list.cart.user')) {
-                $carts = array_values($carts);
-                
+           
+            if ($previous_url == route('list.cart.user')){
+
+             
                if (!empty($carts)) {
+                $carts = array_values($carts);
                 event(new update_cart_when_logged_in($carts));
                }
               
@@ -50,7 +52,6 @@ class LoginController extends Controller
             ->with('error','tài khoản hoặc mật khẩu không chính xác');
         }
         
-       
     }
 
     public function Logout()

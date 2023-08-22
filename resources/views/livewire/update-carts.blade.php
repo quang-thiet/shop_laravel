@@ -22,6 +22,7 @@
             <tbody>
                 @if (!empty($carts))
                     @foreach ($carts as $item)
+            
                         <tr>
                             <td class="pro-thumbnail"><a href="#"><img
                                         src="{{ asset('/image/products/' . $item['image']) }}" alt="Product"></a>
@@ -31,16 +32,16 @@
                             </td>
                             <td class="pro-quantity">
                                 <div class="pro-qty update_price">
-                                    <button class="dec qtybtn" wire:click = "decrement({{ $item['id'] }},{{ $item['quantity'] }})" >-</button >
+                                    <button class="dec qtybtn" wire:click = "decrement({{ $item['product_id'] }},{{ $item['quantity'] }})" >-</button >
                                     <input data-id="{{ $item['id'] }} " type="number" value="{{ $item['quantity'] }}"
                                         min="1"
                                         wire:change.lazy="update_cart({{ $item['id'] }}, event.target.value)">
-                                    <button class="inc qtybtn" wire:click ="increment({{ $item['id'] }},{{ $item['quantity'] }})">+</button>
+                                    <button class="inc qtybtn" wire:click ="increment({{ $item['product_id'] }},{{ $item['quantity'] }})">+</button>
                                 </div>
                             </td>
                             <td class="pro-subtotal"><span>${{ $item['total'] }}</span></td>
                             <td class="pro-remove">
-                                <a href="#"><i class="fa fa-trash-o"></i></a>
+                                <a href="#" wire:click = "delete({{ $item['product_id']}})"><i class="fa fa-trash-o"></i></a>
                             </td>
                         </tr>
                     @endforeach

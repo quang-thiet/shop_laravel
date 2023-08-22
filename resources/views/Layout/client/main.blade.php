@@ -1,5 +1,0 @@
-@include('Layout.client.header')
-@yield('slider')
-@yield('banner')
-@yield('content')
-@include('Layout.client.footer')

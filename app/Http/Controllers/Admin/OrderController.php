@@ -54,7 +54,13 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::find($id);
+        $order->load('surcharge');
+    //   foreach ($order->surcharge as $value) {
+    //    dd($value->pivot->name);
+    //   }
+       
+       return view('Screen.client.detail_order',compact('order'));
     }
 
     /**
@@ -67,7 +73,6 @@ class OrderController extends Controller
     {
         $order= Order::find($id);
         $order->load('items');
-       
         return View('Screen.admin.order.edit',compact('order'));
         
     }
