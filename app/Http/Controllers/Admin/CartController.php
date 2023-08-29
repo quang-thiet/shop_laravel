@@ -33,6 +33,8 @@ class CartController extends Controller
    
     $data_request = $request->all();
 
+    $data_request['quantity'] ?? 1 ;
+
     $product = DB::table('products')
       ->select('name', 'image', 'price', 'discount', 'quantity')
       ->where('published', '=', 1)
@@ -51,11 +53,18 @@ class CartController extends Controller
         $cart->quantity  +=  $data_request['quantity'];
         //kiểm tra có vượt quá số lượng product hiện có hay không và bỏ qua trường hợp số lượng = nhau
         if ($cart->quantity > $product->quantity && $cart->quantity -  $product->quantity < 0) {
+
           return redirect()->back()->with('error', 'số lượng vượt ngưỡng cho phép vui lòng kiểm tra lại giỏ hàng !!');
+
         }
+
+
         $cart->save();
         return redirect()->back()->with('success', 'Sản phẩn đã được cập nhật lại số lượng trong giỏ hàng  !!');
+
+
       } else {
+
         $data_cart['quantity'] = $data_request['quantity'];
         if ($data_cart['quantity'] > $product->quantity) {
           return redirect()->back()->with('error', 'số lượng vượt ngưỡng cho phép vui lòng kiểm tra lại giỏ hàng !!');
@@ -82,7 +91,7 @@ class CartController extends Controller
     $carts = Cookie::get('carts') ?? "[]";
     $carts = (array)json_decode($carts, true);
 
-    if (isset($carts[$product_id])) {
+    if (isset($carts[$product_id])){
       $data =  $carts[$product_id]['quantity'] += $request->input('quantity');
 
       //kiểm tra có vượt quá số lượng product hiện có hay không và bỏ qua trường hợp số lượng = nhau
@@ -97,6 +106,7 @@ class CartController extends Controller
       $carts[$product_id]['quantity'] = $data;
       $carts[$product_id]['price'] = $product->price;
       $carts[$product_id]['total'] = $carts[$product_id]['quantity'] * $carts[$product_id]['price'];
+
     } else {
 
       //set data để thêm 
@@ -147,10 +157,13 @@ class CartController extends Controller
         'quantity' => $data['quantity'],
         'total'    => $data['quantity'] * $product->price,
       ];
+
       $cart = Carts::where('product_id', $data['id'])->update($new_data);
       return response()->json([
         'data' => 'update thành công',
       ], 204);
+
+
     } else {
 
       if (!empty($request->id) && !empty($request->quantity)) {
@@ -159,6 +172,7 @@ class CartController extends Controller
         //set lại giá trị quantity và total
         $carts[$data['id']]['quantity'] = $data['quantity'];
         $carts[$data['id']]['total'] = $carts[$data['id']]['quantity'] * $carts[$data['id']]['price'];
+        
         //update lại 
         Cookie::queue('carts', json_encode($carts), 3600 * 336); // 2 week
         return response()->json([
@@ -173,8 +187,11 @@ class CartController extends Controller
   {
     
     if (Auth::check()) {
+
       $cart = Carts::where('product_id', $id)->delete();
       return redirect()->back()->with('success', 'xoa thành công');
+
+
     } else {
      
       $carts = Cookie::get('carts') ?? "[]";
@@ -182,6 +199,7 @@ class CartController extends Controller
       unset($carts[$id]);
       Cookie::queue('carts', json_encode($carts), 3600 * 336); // 2 week
       return redirect()->back()->with('success', 'xoa thành công');
+      
     }
   }
 }

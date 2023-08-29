@@ -1,11 +1,9 @@
-@extends('Layout.client.main')
+@extends('Layout\client\master')
+
+@section('title', 'Home Page')
+
 @section('content')
-    @if (session()->has('success'))
-        <div class="alert alert-success">{{ session()->get('success') }}</div>
-    @endif
-    @if (session()->has('error'))
-        <div class="alert alert-danger">{{ session()->get('error') }}</div>
-    @endif
+  
 
     <!--Cart section start-->
     <div class="cart-section section pt-90 pt-lg-70 pt-md-60 pt-sm-50 pt-xs-45  pb-70 pb-lg-50 pb-md-40 pb-sm-30 pb-xs-20">

@@ -21,6 +21,7 @@ class CartService
 
                 $data  = User::find(Auth::id());
                 $carts = $data->carts;
+
                 if (!empty($carts)) {
                     $carts->map(function ($item) {
                             $product = Product::find($item->product_id);
@@ -61,13 +62,12 @@ class CartService
                         $cart['product_id'] = $cart['id']; 
                         return $cart;
                     }, $carts);
-        
-                
             }
 
             $carts ?? $carts = [];
 
             return $carts;
+            
         } catch (\Exception $e) {
             dd($e);
             Log::error($e->getLine() . '/nLIne: ' . $e->getMessage());

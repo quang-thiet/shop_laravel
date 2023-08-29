@@ -1,10 +1,5 @@
 <div class="col-12">
-    @if (session()->has('success'))
-        <div class="alert alert-success">{{ session()->get('success') }}</div>
-    @endif
-    @if (session()->has('error'))
-        <div class="alert alert-danger">{{ session()->get('error') }}</div>
-    @endif
+  
     <!-- Cart Table -->
     <div class="cart-table table-responsive mb-30 update_cart" data-url="{{ route('update.cart') }}">
 
@@ -27,9 +22,11 @@
                             <td class="pro-thumbnail"><a href="#"><img
                                         src="{{ asset('/image/products/' . $item['image']) }}" alt="Product"></a>
                             </td>
+
                             <td class="pro-title"><a href="#">{{ $item['name'] }}</a></td>
                             <td class="pro-price"><span id="{{ $item['id'] }}_price">${{ $item['price'] }}</span>
                             </td>
+
                             <td class="pro-quantity">
                                 <div class="pro-qty update_price">
                                     <button class="dec qtybtn" wire:click = "decrement({{ $item['product_id'] }},{{ $item['quantity'] }})" >-</button >
@@ -39,7 +36,9 @@
                                     <button class="inc qtybtn" wire:click ="increment({{ $item['product_id'] }},{{ $item['quantity'] }})">+</button>
                                 </div>
                             </td>
+
                             <td class="pro-subtotal"><span>${{ $item['total'] }}</span></td>
+                            
                             <td class="pro-remove">
                                 <a href="#" wire:click = "delete({{ $item['product_id']}})"><i class="fa fa-trash-o"></i></a>
                             </td>

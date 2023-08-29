@@ -17,8 +17,11 @@
                             <ul>
                                 <li><a href="index.html">Home</a>
                                     <ul class="sub-menu">
-                                        <li><a href="index.html">Home One</a></li>
-                                        <li><a href="index-2.html">Home Two</a></li>
+                                       @foreach ($categories as $item)
+                                           
+                                            <li><a href="index.html">Home One</a></li>
+                                            
+                                       @endforeach
                                     </ul>
                                 </li>
                                 <li><a href="shop.html">Shop</a>
@@ -137,46 +140,46 @@
                             </li>
                             <li class="mini-cart"><a href="#"><i class="flaticon-shopping-cart"></i> <span class="mini-cart-total">$300.00(2)</span></a>
                                 <!--Mini Cart Dropdown Start-->
+                                @if (empty($cats))
                                 <div class="header-cart">
+                                    @foreach ($carts as $item)
                                     <ul class="cart-items">
                                         <li class="single-cart-item">
                                             <div class="cart-img">
-                                                <a href="cart.html"><img src="assets/images/cart/cart1.jpg" alt=""></a>
+                                                <a href="cart.html"><img src="{{asset(URL_PRODUCT.$item['image'])}}" alt=""></a>
                                             </div>
                                             <div class="cart-content">
-                                                <h5 class="product-name"><a href="single-product.html">Dell Inspiron 24</a></h5>
-                                                <span class="product-quantity">1 ×</span>
-                                                <span class="product-price">$278.00</span>
+                                                <h5 class="product-name"><a href="single-product.html">{{$item['name']}}</a></h5>
+                                                <span class="product-quantity">{{$item['quantity']}} ×</span>
+                                                <span class="product-price">${{$item['price']}}</span>
                                             </div>
                                             <div class="cart-item-remove">
-                                                <a title="Remove" href="#"><i class="fa fa-trash"></i></a>
+                                                <a title="Remove" href="{{route('delete.cart',['id'=>$item['id']])}}"><i class="fa fa-trash"></i></a>
                                             </div>
                                         </li>
-                                        <li class="single-cart-item">
-                                            <div class="cart-img">
-                                                <a href="cart.html"><img src="assets/images/cart/cart2.jpg" alt=""></a>
-                                            </div>
-                                            <div class="cart-content">
-                                                <h5 class="product-name"><a href="single-product.html">Lenovo Ideacentre 300</a></h5>
-                                                <span class="product-quantity">1 ×</span>
-                                                <span class="product-price">$23.39</span>
-                                            </div>
-                                            <div class="cart-item-remove">
-                                                <a title="Remove" href="#"><i class="fa fa-trash"></i></a>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                    </ul>  
+                                    @endforeach
+                                    
                                     <div class="cart-total">
-                                        <h5>Subtotal :<span class="float-right">$39.79</span></h5>
-                                        <h5>Eco Tax (-2.00) :<span class="float-right">$7.00</span></h5>
-                                        <h5>VAT (20%) : <span class="float-right">$0.00</span></h5>
-                                        <h5>Total : <span class="float-right">$46.79</span></h5>
+                                        @php
+                                           $total = total_cart($carts , $surcharge );
+                                        @endphp
+                                        <h5>Subtotal :<span class="float-right">{{$total['sub_total']}}</span></h5>
+
+                                        @foreach ($surcharge as $item)
+                                        <h5>{{$item->name}} :<span class="float-right">{{$item->value}}</span></h5>
+                                        @endforeach
+
+                                        <h5>Total : <span class="float-right">${{$total['grand_total']}}</span></h5>
                                     </div>
                                     <div class="cart-btn">
-                                        <a href="cart.html">View Cart</a>
-                                        <a href="checkout.html">checkout</a>
+                                        <a href="{{route('list.cart.user')}}">View Cart</a>
+                                        @auth
+                                        <a href="{{route('check.out')}}">checkout</a>
+                                        @endauth
                                     </div>
                                 </div>
+                                @endif
                                 <!--Mini Cart Dropdown End-->
                             </li>
                         </ul>

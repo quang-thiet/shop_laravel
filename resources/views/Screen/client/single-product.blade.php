@@ -1,12 +1,10 @@
-@extends('Layout.client.main')
+@extends('Layout\client\master')
+
+@section('title', 'Home Page')
+
 @section('content')
 
-@if (session()->has('success'))
-<div class="alert alert-success">{{ session()->get('success') }}</div>
-@endif
-@if (session()->has('error'))
-<div class="alert alert-danger">{{ session()->get('error') }}</div>
-@endif
+
   <!-- Page Banner Section Start -->
   <div class="page-banner-section section bg-image" data-bg="assets/images/bg/breadcrumb.png">
     <div class="container">
@@ -582,10 +580,6 @@
 
     </div>
 </div>
-<script>
-    $(document).ready(function(){
-        
-    })
-</script>
+
 @endsection
 

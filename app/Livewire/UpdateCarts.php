@@ -78,6 +78,7 @@ class UpdateCarts extends Component
             ];
             $cart = Carts::where('product_id', $id)->update($new_data);
             $this->js("alert('update thành công !!')");
+            
         } else {
 
             $carts = $this->carts;

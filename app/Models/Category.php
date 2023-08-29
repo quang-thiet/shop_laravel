@@ -14,4 +14,11 @@ class Category extends Model
         'parent_id',
         'published'
     ];
+
+    public function SubMenu()
+    {
+
+        return $this->hasMany(Category::class,'parent_id');
+        
+    }
 }

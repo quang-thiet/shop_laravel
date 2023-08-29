@@ -16,6 +16,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestQueueController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,10 +35,16 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 #cart
 Route::get('/list-cart', [CartController::class, 'index'])->name('list.cart.user');
 Route::get('/cart-{id}', [CartController::class, 'store'])->name('add.cart');
+
 route::get('/update-cart', [CartController::class, 'update'])->name('update.cart');
 Route::get('/delete-cart/{id}', [CartController::class,'delete'])->name('delete.cart');
 Route::get('san-pham/{slug}/{id}', [ProductController::class, 'show'])->where(['id' => '[0-9]+'])->name('single.product');
 
+#wishlist
+
+Route::get('wishlist/wish-list',[WishlistController::class,'index'])->name('wishlist.index');
+
+Route::get('wishlist/wish-store/{slug}/{id}',[WishlistController::class,'store'])->name('wishlist.store');
 
 #admin
 
