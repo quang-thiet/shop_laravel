@@ -6,7 +6,7 @@ use Illuminate\View\View;
 class CategoriesComposer {
 
 
-    public function composer(View $view){
+    public function compose(View $view){
 
         $categories  = Category::with('SubMenu')
         ->limit(10)
